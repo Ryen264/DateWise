@@ -1,0 +1,4 @@
+1. download node.js
+2. Install and create react through:
+	npx create-react-app <target-folder> 
+
