@@ -1,3 +1,4 @@
+/* Basic reset for margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -69,6 +70,10 @@ body {
     font-size: 14px; 
     font-family: 'Archivo', sans-serif;
     color: #4d545f;    
+}
+
+.form-group input::placeholder {
+    color: #9e9ca0; /* Màu của placeholder */
 }
 
 button {
