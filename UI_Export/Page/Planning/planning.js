@@ -43,5 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Max Budget:', maxBudget);
 
         // You can add further processing or form submission logic here
+        window.location.href = '../PlanDetails/plandetails.html';
     });
 });
