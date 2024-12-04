@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #f8cedb; /* Background color for the entire page */
+    background-image: linear-gradient(to top right,#848aef,#fff, rgba(249, 179, 219, 0.933));
 }
 
 .milestones {

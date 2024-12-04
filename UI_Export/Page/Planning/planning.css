@@ -3,7 +3,8 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8cedb;
+    /*background-color: #f8cedb;*/
+    background-image: linear-gradient(to bottom right, #f8ce,#fff,#636ae8);
 }
 
 /* Header */
