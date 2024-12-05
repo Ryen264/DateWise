@@ -3,7 +3,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8cedb;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
 }
 
 /* Header */
@@ -28,6 +28,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .notification-button {
@@ -45,6 +46,7 @@ body {
 
 .user-profile span {
     font-weight: bold;
+    cursor: pointer;
 }
 
 .main-content {
@@ -252,7 +254,7 @@ body {
     display: none;
     background: #f4f4f4;
     padding: 0 2rem;
-    background-color: #f8cedb;
+    background-color: transparent;
 }
 
 .carousel-slide img {
@@ -275,6 +277,7 @@ body {
     border-radius: 40px;
     transition-duration: 0.2s;
     border: 0;
+    cursor: pointer;
 }
 
 .prev:hover, .next:hover {
@@ -282,18 +285,18 @@ body {
 }
 
 /* section-02 */
-.section-02 {
+.section-02, .section-03 {
     margin: 2rem;
 }
 
-.section-02 h2 {
+.section-02 h2, .section-03 h2 {
     padding-left: 5.5rem;
     font-weight: bold;
     font-size: 2rem;
     color: #000000;
 }
 
-.section-02 h2 span {
+.section-02 h2 span, .section-03 h2 span {
     font-weight: bold;
     font-size: 2rem;
     color: #6e5dfc;
@@ -330,6 +333,7 @@ body {
 }
 
 .slider-slide {
+    position: relative;
     min-width: calc(100% / 3 - 5rem); /* Show 3 slides */
     background: #fff;
     border-radius: 8px;
@@ -338,26 +342,30 @@ body {
     text-align: left;
 }
 
-.slider-slide img {
+.image-container {
+    position: relative;
+}
+
+.image-container img {
     width: 100%;
     border-radius: 8px 8px 0 0;
     object-fit: cover;
 }
 
-.slider-slide h3 {
+.slider-slide .text-container h3 {
     font-size: 1.2em;
     color: #333;
     padding-left: 1rem;
 }
 
-.slider-slide p {
+.slider-slide .text-container p {
     margin: 5px 0;
     font-size: 0.9em;
     color: #555;
     padding-left: 1rem;
 }
 
-.slider-slide p:last-child {
+.slider-slide .text-container p:last-child {
     padding-bottom: 1rem;
 }
 
@@ -369,7 +377,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 40px;
-    transition-duration: 0.2s;
+    transition-duration: 0.5s;
     border: 0;
 }
 
@@ -377,34 +385,53 @@ body {
     background-color: #e6356d;
 }
 
+.heart-btn {
+    position: absolute;
+    background-color: #8d8d8d;
+    margin-top: -1.5rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.heart-btn:hover {
+    background-color: #fe6969;
+    transition-duration: 0.2s;
+}
+
 .footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 20px 10px;
-  }
-  
-  .footer-container {
+    padding: 3rem 1rem;
+    margin-top: 3rem;
+}
+
+.footer-container {
     max-width: 800px;
     margin: 0 auto;
-  }
-  
-  .footer a {
+}
+
+.footer a {
     color: #1e90ff;
     text-decoration: none;
-  }
-  
-  .footer a:hover {
+}
+
+.footer a:hover {
     text-decoration: underline;
-  }
-  
-  .footer-title {
+}
+
+.footer-title {
     font-size: 1.5em;
     margin-bottom: 10px;
-  }
-  
-  .footer p {
+}
+
+.footer p {
     margin: 5px 0;
     font-size: 0.9em;
-  }
-  
+}
