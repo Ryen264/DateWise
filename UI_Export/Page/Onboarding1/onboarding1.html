@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding</title>
+    <link rel="stylesheet" href="onboarding1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 40;
+            font-size: 61px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-frame">
+            <div class="milestone" id="milestone1">
+                <span class="material-symbols-outlined milestone-symbol">person_search</span>
+                <label for="milestone1">What Are Your Interests?</label>
+            </div>
+            <div class="milestone" id="milestone2">
+                <span class="material-symbols-outlined milestone-symbol">person_pin_circle</span>
+                <label for="milestone2">What is your preferred location?</label>
+            </div>
+        </div>
+        <div class="right-frame">
+            <form action="submit_onboarding" method="post">
+                <div class="section">
+                    <h2>Main Course</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" data-value="Ramen">Ramen</button>
+                        <button type="button" class="select-button" data-value="Dim sum">Dim sum</button>
+                        <button type="button" class="select-button" data-value="Buffet">Buffet</button>
+                        <button type="button" class="select-button" data-value="Pho">Pho</button>
+                        <button type="button" class="select-button" data-value="Vegetarian">Vegetarian</button>
+                        <button type="button" class="select-button" data-value="Barbecue">Barbecue</button>
+                        <button type="button" class="select-button" data-value="Chicken">Chicken</button>
+                        <button type="button" class="select-button" data-value="Udon">Udon</button>
+                        <button type="button" class="select-button" data-value="Rice">Rice</button>
+                        <button type="button" class="select-button" data-value="Noodle">Noodle</button>
+                        <button type="button" class="select-button" data-value="Seafood">Seafood</button>
+                        <button type="button" class="select-button" data-value="Hotpot">Hotpot</button>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Dessert/Drink</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" data-value="Cafe">Cafe</button>
+                        <button type="button" class="select-button" data-value="Bar">Bar</button>
+                        <button type="button" class="select-button" data-value="Tea">Tea</button>
+                        <button type="button" class="select-button" data-value="Cake">Cake</button>
+                        <button type="button" class="select-button" data-value="Pancake">Pancake</button>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Cuisine</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" data-value="Indian">Indian</button>
+                        <button type="button" class="select-button" data-value="Vietnamese">Vietnamese</button>
+                        <button type="button" class="select-button" data-value="French">French</button>
+                        <button type="button" class="select-button" data-value="American">American</button>
+                        <button type="button" class="select-button" data-value="Mexican">Mexican</button>
+                        <button type="button" class="select-button" data-value="Japanese">Japanese</button>
+                        <button type="button" class="select-button" data-value="Spanish">Spanish</button>
+                        <button type="button" class="select-button" data-value="Italian">Italian</button>
+                        <button type="button" class="select-button" data-value="Korean">Korean</button>
+                        <button type="button" class="select-button" data-value="Thai">Thai</button>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Activity</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" data-value="Theater">Theater</button>
+                        <button type="button" class="select-button" data-value="Live Music">Live Music</button>
+                        <button type="button" class="select-button" data-value="Music">Music</button>
+                        <button type="button" class="select-button" data-value="Outdoor">Outdoor</button>
+                        <button type="button" class="select-button" data-value="Museum">Museum</button>
+                        <button type="button" class="select-button" data-value="Sport">Sport</button>
+                        <button type="button" class="select-button" data-value="Gallery">Gallery</button>
+                        <button type="button" class="select-button" data-value="Religion">Religion</button>
+                        <button type="button" class="select-button" data-value="Library">Library</button>
+                        <button type="button" class="select-button" data-value="Shopping">Shopping</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="button" class="skip-button">Skip</button>
+        <button type="button" class="next-button">Next</button>
+    </div>
+    <script src="onboarding1.js"></script>
+</body>
+</html>
