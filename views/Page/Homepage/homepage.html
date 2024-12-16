@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DateWise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">DateWise</div>
+            <div class="user-profile">
+                <div class="btn">
+                    <button id="noti-icon" class="notification-button" onclick="location.href=''">
+                        <img src="../asset/icon/bell.svg" alt="Noti icon">
+                    </button>
+                </div>
+                <img src="../asset/image/ava.png" alt="User Avatar" onclick="location.href='../profile/profile.html'">
+                <span onclick="location.href=''">Amanda Smith</span>
+            </div>
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="banner">
+            <div class="background-img">
+                <img src="../asset/image/sunset.jpg" alt="Background">
+            </div>
+            <div class="banner-text">
+                Discover Unforgettable Experience
+            </div>
+            <button class="banner-btn" onclick="location.href='../../../UI_Export/Page/Planning/planning.html'">
+                Make your own plan
+            </button>
+        </div>
+        <div class="section-01">
+            <div class="calendar">
+              <div class="month">
+                <a href="#" class="nav">
+                    <img src="../asset/icon/left-arrow.svg" alt="Left" width="24" height="24">
+                </a>
+                <div>January <span class="year">2019</span></div>
+                <a href="#" class="nav">
+                    <img src="../asset/icon/right-arrow.svg" alt="Right" width="24" height="24">
+                </a>
+              </div>
+            
+                <div class="days">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+                <div class="dates">
+                    <button>
+                      <time>1</time>
+                    </button>
+                    <button>
+                      <time>2</time>
+                    </button>
+                    <button>
+                      <time>3</time>
+                    </button>
+                    <button>
+                      <time>4</time>
+                    </button>
+                    <button>
+                      <time>5</time>
+                    </button>
+                    <button>
+                      <time>6</time>
+                    </button>
+                    <button>
+                      <time>7</time>
+                    </button>
+                    <button>
+                      <time>8</time>
+                    </button>
+                    <button>
+                      <time>9</time>
+                    </button>
+                    <button>
+                      <time>10</time>
+                    </button>
+                    <button>
+                      <time>11</time>
+                    </button>
+                    <button>
+                      <time>12</time>
+                    </button>
+                    <button>
+                      <time>13</time>
+                    </button>
+                    <button>
+                      <time>14</time>
+                    </button>
+                    <button>
+                      <time>15</time>
+                    </button>
+                    <button>
+                      <time>16</time>
+                    </button>
+                    <button>
+                      <time>17</time>
+                    </button>
+                    <button class="today">
+                      <time>18</time>
+                    </button>
+                    <button>
+                      <time>19</time>
+                    </button>
+                    <button>
+                      <time>20</time>
+                    </button>
+                    <button>
+                      <time>21</time>
+                    </button>
+                    <button>
+                      <time>22</time>
+                    </button>
+                    <button>
+                      <time>23</time>
+                    </button>
+                    <button>
+                      <time>24</time>
+                    </button>
+                    <button>
+                      <time>25</time>
+                    </button>
+                    <button>
+                      <time>26</time>
+                    </button>
+                    <button>
+                      <time>27</time>
+                    </button>
+                    <button>
+                      <time>28</time>
+                    </button>
+                    <button>
+                      <time>29</time>
+                    </button>
+                    <button>
+                      <time>30</time>
+                    </button>
+                    <button>
+                      <time>31</time>
+                    </button>
+                </div>
+            </div>
+            <div class="week-highlight">
+                <h2>Highlight of <span>this week</span></h2>
+                <!-- Carousel container -->
+                <div class="carousel-container">
+                    <button class="prev">
+                        <img src="../asset/icon/left-arrow.svg" alt="Left" width="24" height="24">
+                    </button>
+                    <div class="carousel-slide active">
+                        <img src="../asset/image/workshop.png" alt="">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="../asset/image/banner.png" alt="">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="../asset/image/baking.jpg" alt="">
+                    </div>
+                    <button class="next">
+                        <img src="../asset/icon/right-arrow.svg" alt="Right" width="24" height="24">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-02">
+            <h2>Must-try <span>Restaurant</span></h2>
+            <div class="slider">
+                <div class="slider-wrapper">
+                    <button class="slider-btn prev">
+                        <img src="../asset/icon/left-arrow.svg" alt="Left" width="24" height="24">
+                    </button>
+                    <div class="slider-container">
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 1">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 2">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 2, HCMC</p>
+                                <p>💵 From 200,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 3">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>   
+                        <!-- Add more slides as needed -->
+                    </div>
+                    <button class="slider-btn next">
+                        <img src="../asset/icon/right-arrow.svg" alt="Right" width="24" height="24">
+                    </button>
+                </div>
+            </div>        
+        </div>
+
+        <div class="section-03">
+            <h2>Must-try <span>Coffee shop<span></h2>
+            <div class="slider">
+                <div class="slider-wrapper">
+                    <button class="slider-btn prev">
+                        <img src="../asset/icon/left-arrow.svg" alt="Left" width="24" height="24">
+                    </button>
+                    <div class="slider-container">
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 1">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 2">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 2, HCMC</p>
+                                <p>💵 From 200,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 3">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>                  
+                        <!-- Add more slides as needed -->
+                    </div>
+                    <button class="slider-btn next">
+                        <img src="../asset/icon/right-arrow.svg" alt="Right" width="24" height="24">
+                    </button>
+                </div>
+            </div>        
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+          <p class="footer-title">Contact Us</p>
+          <p>Email: <a href="">datewise@spooners.com</a></p>
+          <p>Phone: <a href="">+1 234 567 890</a></p>
+          <p>Address: 123 Nguyen Van Cu Street, Ho Chi Minh City, Vietnam</p>
+          <p>&copy; 2024 Spooners. All rights reserved.</p>
+        </div>
+    </footer>    
+    <script src="script.js"></script>
+</body>
+</html>
