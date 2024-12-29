@@ -19,6 +19,61 @@
             font-size: 61px; 
         }
     </style>
+    <script>
+        function back() {
+            const selectedLocations = $('#location-dropdown').val().join(',');
+            localStorage.setItem('selectedLocations', selectedLocations);
+            window.location.href = '/onboarding_1';
+        }
+        function finish() {
+            const mainCourse = localStorage.getItem('mainCourse') ? localStorage.getItem('mainCourse').split(',') : [];
+            const dessert = localStorage.getItem('dessert') ? localStorage.getItem('dessert').split(',') : [];
+            const cuisine = localStorage.getItem('cuisine') ? localStorage.getItem('cuisine').split(',') : [];
+            const activity = localStorage.getItem('activity') ? localStorage.getItem('activity').split(',') : [];
+            const selectedLocations = localStorage.getItem('selectedLocations') ? localStorage.getItem('selectedLocations').split(',') : [];
+            $.ajax({
+                url: '/submit_onboarding',
+                type: 'POST',
+                data: {
+                    mainCourse: mainCourse, 
+                    dessert: dessert, 
+                    cuisine: cuisine, 
+                    activity: activity, 
+                    locations: selectedLocations
+                },
+                success: function(user) {
+                    localStorage.clear();
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    window.location.href = '/';
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    console.log(error);
+                }
+            });
+        }
+
+        function skip() 
+        {
+            window.location.href = '/';
+        }
+
+        function loadOnboarding2Data() {
+            let selectedLocations = localStorage.getItem('selectedLocations').split(',') || [];
+            $('#location-dropdown').val(selectedLocations).trigger('change');
+        }
+
+        
+        $(document).ready(function() {
+            loadOnboarding2Data();
+        });
+
+        $(window).on('pageshow', function(event) {
+            if (event.originalEvent.persisted) {
+                loadOnboarding2Data();
+            }
+        });
+    </script>>
 </head>
 <body>
     <div class="container">
@@ -48,9 +103,18 @@
                                 <option value="District 6">District 6</option>
                                 <option value="District 7">District 7</option>
                                 <option value="District 8">District 8</option>
+                                <option value="District 9">District 9</option>
                                 <option value="District 10">District 10</option>
                                 <option value="District 11">District 11</option>
                                 <option value="District 12">District 12</option>
+                                <option value="Binh Thanh District">Binh Thanh District</option>
+                                <option value="Tan Binh District">Tan Binh District</option>
+                                <option value="Tan Phu District">Tan Phu District</option>
+                                <option value="Go Vap District">Go Vap District</option>
+                                <option value="Binh Chanh District">Binh Chanh District</option>
+                                <option value="Cu Chi District">Cu Chi District</option>
+                                <option value="Hoc Mon District">Hoc Mon District</option>
+                                <option value="Nha Be District">Nha Be District</option>
                             </select>
                         </div>
                     </div>
@@ -60,10 +124,10 @@
         </div>
     </div>
     <div class="footer">
-        <button type="button" class="skip-button" onclick="location.href='../../../../DateWiseUI/homepage/homepage.html'">Skip</button>
+        <button type="button" class="skip-button" onclick="skip()">Skip</button>
         <div class="button-group">
-            <button type="button" class="back-button" onclick="location.href='../Onboarding1/onboarding1.html'">Back</button>
-            <button type="button" class="finish-button" onclick="location.href='../../../../DateWiseUI/homepage/homepage.html'">Finish</button>
+            <button type="button" class="back-button" onclick="back()">Back</button>
+            <button type="button" class="finish-button" onclick="finish()">Finish</button>
         </div>
     </div>
     <script src="onboarding2.js"></script>

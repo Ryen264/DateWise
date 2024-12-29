@@ -6,6 +6,30 @@
     <title>DateWise - Sign Up</title>
     <link rel="stylesheet" href="signup.css">
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#signup-form').submit(function(event) {
+                event.preventDefault();
+                const email = $('#email').val();
+                const password = $('#password').val();
+                const fullname = $('#fullname').val();
+                const dateofbirth = $('#dateofbirth').val();
+                $.ajax({
+                    url: '/signup',
+                    type: 'POST',
+                    data: { email: email, password: password, fullname: fullname, dateofbirth: dateofbirth },
+                    success: function(user) {
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        window.location.href = '/onboarding_1';
+                    },
+                    error: function(error) {
+                        console.error('Error signing in:', error);
+                    }
+                });
+            });
+        })
+    </script>
 </head>
 <body>
     <div class="container">
@@ -15,7 +39,7 @@
         <div class="subheader">
             <p>Create an account</p>
         </div>
-        <form action="signup.php" method="POST">
+        <form id="signup-form">
             <div class="form-group form-group-1">
                 <label for="fullname">Fullname</label>
                 <input type="text" name="fullname" id="fullname" placeholder="NGUYEN VAN A" required>
@@ -36,10 +60,11 @@
                 <input type="checkbox" name="terms" id="terms" required>
                 <label for="terms">I agree with <a href="#" class="terms-link">Terms & Conditions</a></label>
             </div>
-            <a href="../Onboarding1/onboarding1.html" class="button">Sign Up</a>
+            <button type="submit" class="button">Sign up
+            </button>
         </form>
         <div class="footer">
-            <p>Already have an account? <a href="../Signin/signin.html">Sign In</a></p>
+            <p>Already have an account? <a href="/signin">Sign In</a></p>
         </div>
     </div>
 </body>
