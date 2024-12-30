@@ -8,7 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function(){
-        if (localStorage.getItem('currentUser'))
+        localStorage.clear();
+        // if (localStorage.getItem('currentUser'))
         {
           $.ajax({
           url: '/setCurrentUser',

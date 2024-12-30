@@ -1,5 +1,5 @@
-const Users = require('../models/userAccount');
-const bcrypt = require('bcrypt');
+import {Users} from '../models/userAccount.js';
+import bcrypt from 'bcrypt';
 
 const loginUser = async (req, res) => {
     const {email, password} = req.body;
@@ -95,4 +95,4 @@ const handle_submit_onboarding = async(req, res) => {
    
 };
 
-module.exports = {loginUser, signupUser, handle_submit_onboarding};
+export {loginUser, signupUser, handle_submit_onboarding};

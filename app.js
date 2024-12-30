@@ -1,11 +1,24 @@
 // Import thư viện Express
-require('dotenv').config(); 
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
-const connectDB = require('./config/db'); 
-const {loginUser, signupUser, handle_submit_onboarding} = require('./controllers/userController'); 
+// require('dotenv').config(); 
+// const express = require('express');
+// const session = require('express-session');
+// const path = require('path');
+// const connectDB = require('./config/db'); 
+// const {loginUser, signupUser, handle_submit_onboarding} = require('./controllers/userController'); 
+
+import express from 'express';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import connectDB from './config/db.js';
+import {loginUser, signupUser, handle_submit_onboarding} from './controllers/userController.js';
+
+dotenv.config();
 connectDB();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 // Khởi tạo ứng dụng Express
