@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DateWise - Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="location.href='../homepage/homepage.html'">DateWise</div>
+            <div class="user-profile">
+                <div class="btn">
+                    <button id="noti-icon" class="notification-button" onclick="location.href=''">
+                        <img src="../asset/icon/bell.svg" alt="Noti icon">
+                    </button>
+                </div>
+                <img src="../asset/image/ava.png" alt="User Avatar" onclick="location.href=''">
+                <span onclick="location.href=''">Amanda Smith</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="profile-section">
+            <div class="profile">
+                <div class="profile-pic">
+                    <img src="../asset/image/ava.png" alt="">
+                </div>
+                <div class="profile-text">
+                    <h2 class="fullname">Amanada Smith</h2>
+                    <P><img src="../asset/icon/calendar.svg" alt=""> 01/02/2004</P>
+                    <P><img src="../asset/icon/mail.svg" alt=""> lovetodate@gmail.com</P>
+                    <P><img src="../asset/icon/position.svg" alt=""> District 10, HCMC</P>
+                    </ul>
+                </div>
+            </div>
+            <button class="edit-button">Edit Profile</button>
+        </div>
+        
+        <div class="section-02">
+            <h2>Your <span>Favorites Categories</span></h2>
+            <nav class="menu-bar">
+                <a href="#" class="menu-item active">All</a>
+                <a href="#" class="menu-item">Food</a>
+                <a href="#" class="menu-item">Drinks</a>
+                <a href="#" class="menu-item">Activities</a>
+                <a href="#" class="menu-item">Desserts</a>
+            </nav>
+            <div class="slider">
+                <div class="slider-wrapper">
+                    <button class="slider-btn prev">
+                        <img src="../asset/icon/left-arrow.svg" alt="Left" width="24" height="24">
+                    </button>
+                    <div class="slider-container">
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 1">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 2">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 2, HCMC</p>
+                                <p>💵 From 200,000đ</p>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="image-container">
+                                <img src="../asset/image/restaurant.png" alt="Restaurant 3">
+                                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
+                                    <img src="../asset/icon/heart.svg" alt="Heart icon">
+                                </button>
+                            </div>
+                            <div class="text-container">
+                                <h3>Mama Ngon - Luxury Restaurant</h3>
+                                <p>⏰ 9:00 AM - 10:00 PM</p>
+                                <p>📍 District 10, HCMC</p>
+                                <p>💵 From 100,000đ</p>
+                            </div>
+                        </div>   
+                        <!-- Add more slides as needed -->
+                    </div>
+                    <button class="slider-btn next">
+                        <img src="../asset/icon/right-arrow.svg" alt="Right" width="24" height="24">
+                    </button>
+                </div>
+            </div>        
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+          <p class="footer-title">Contact Us</p>
+          <p>Email: <a href="">datewise@spooners.com</a></p>
+          <p>Phone: <a href="">+1 234 567 890</a></p>
+          <p>Address: 123 Nguyen Van Cu Street, Ho Chi Minh City, Vietnam</p>
+          <p>&copy; 2024 Spooners. All rights reserved.</p>
+        </div>
+    </footer> 
+    <script src="script.js"></script>
+</body>
+</html>
