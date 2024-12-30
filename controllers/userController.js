@@ -9,9 +9,7 @@ const loginUser = async (req, res) => {
             const isMatch = await bcrypt.compare(password, user.USER_PASSWORD);
             if (isMatch) {
               req.session.user = user;
-              res.set('X-Content-Type-Options', 'nosniff'); // Set the X-Content-Type-Options header
-              res.status(200).json(user);//redirect('/');
-        
+              res.status(200).json(user);
             } else {
               res.status(401).json({ message: 'Invalid email or password' });
             }
