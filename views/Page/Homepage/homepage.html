@@ -6,34 +6,26 @@
     <title>DateWise</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <!-- <script>
       function userGeneralInfor(){
-        localStorage.clear();
+        // localStorage.clear();
         $.ajax({
           url: '/getCurrentUser',
           type: 'GET',
           success: function(res) {
             localStorage.setItem('fullname', res.fullname);
             localStorage.setItem('email', res.email);
+            
             console.log(res);
           },
           error: function(error) {
-            localStorage.setItem('fullname', "Signin");
+            localStorage.removeItem('fullname');
             console.error('Error signing in:', error);
           }
         })
       }
       userGeneralInfor();
-      // document.addEventListener('DOMContentLoaded', function() {
-      //   userGeneralInfor();
-      // });
-      // $(document).ready(function(){
-      //   userGeneralInfor();
-      // })
-      // $(window).on('pageshow', function(event) {
-      //   userGeneralInfor();
-      // });
-    </script>
+    </script> -->
 </head>
 <body>
     <header class="header">
@@ -48,11 +40,9 @@
                 <img src="ava.png" alt="User Avatar" onclick="location.href='../profile/profile.html'">
                 <span onclick="location.href=''">
                   <script>
-                    userFullName = localStorage.getItem('fullname').split(' ');
-                    document.write(userFullName);
-                    // console.log(userFullName);
-                    // userLastName = userFullName[userFullName.length -1];
-                    // userLastName ? document.write(userLastName): document.write("Signin");
+                    let userFullName = localStorage.getItem('fullname').split(' ');
+                    let userLastName = userFullName[userFullName.length -1];
+                    userLastName ? document.write(userLastName): document.write("Signin");
                   </script>
                 </span>
             </div>

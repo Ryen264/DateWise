@@ -76,7 +76,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getCurrentUser', (req, res) => {
-  console.log(req.session.user);
   if (req.session.user) {
     res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
   } else {
