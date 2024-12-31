@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="onboarding1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 40;
+            font-size: 61px; 
+        }
+    </style>
+    <script>
+        function selectOption(button, inputId) {
+            const input = document.getElementById(inputId);
+            const value = button.getAttribute('id');
+            let selectedValues = input.value ? input.value.split(',') : [];
+            
+            if (selectedValues.includes(value)) {
+                // Remove the value of the selected button if it's already seleted
+                selectedValues = selectedValues.filter(v => v != value);
+                input.value = selectedValues.join(',');
+                button.classList.remove('active');
+            } else {
+                // Add the value if it's not selected
+                selectedValues.push(value);
+                input.value = selectedValues.join(',');
+                button.classList.add('active');
+            }
+        }
+        function skip() {
+            localStorage.removeItem('mainCourse');
+            localStorage.removeItem('dessert');
+            localStorage.removeItem('cuisine');
+            localStorage.removeItem('activity');
+            let inputMainCourse = document.getElementById('mainCourse');
+            inputMainCourse.value = '';
+
+            let inputDessert = document.getElementById('dessert');
+            inputDessert.value = '';
+
+            let inputCuisine = document.getElementById('cuisine');
+            inputCuisine.value = '';
+
+            let inputActivity = document.getElementById('activity');
+            inputActivity.value = '';
+
+            // Remove 'active' class from all buttons
+            const buttons = document.querySelectorAll('.select-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            window.location.href = 'onboarding_2';
+        }
+        function storeOnboardingData() {
+            const mainCourse = document.getElementById('mainCourse').value;
+            const dessert = document.getElementById('dessert').value;
+            const cuisine = document.getElementById('cuisine').value;
+            const activity = document.getElementById('activity').value;
+
+            localStorage.setItem('mainCourse', mainCourse);
+            localStorage.setItem('dessert', dessert);
+            localStorage.setItem('cuisine', cuisine);
+            localStorage.setItem('activity', activity);
+
+            window.location.href = '/onboarding_2';
+        }
+
+        function loadOnboarding1Data() {
+            let mainCourse = localStorage.getItem('mainCourse') || '';
+            let dessert = localStorage.getItem('dessert') || '';
+            let cuisine = localStorage.getItem('cuisine') || '';
+            let activity = localStorage.getItem('activity') || '';
+
+            const inputMainCourse = document.getElementById('mainCourse');
+            inputMainCourse.value = mainCourse;
+
+            const inputDessert = document.getElementById('dessert');
+            inputDessert.value = dessert;
+
+            const inputCuisine = document.getElementById('cuisine');
+            inputCuisine.value = cuisine;
+
+            const inputActivity = document.getElementById('activity');
+            inputActivity.value = activity;
+            
+
+            mainCourse = mainCourse.split(',') || [];
+            dessert = dessert.split(',') || [];
+            cuisine = cuisine.split(',') || [];
+            activity = activity.split(',') || [];
+
+            for (let i = 0; i < mainCourse.length; i++) {
+                const button = document.getElementById(mainCourse[i]);
+                if (button) button.classList.add('active');
+            }
+
+            for (let i = 0; i < dessert.length; i++) {
+                const button = document.getElementById(dessert[i]);
+                if (button) button.classList.add('active');
+            }
+
+            for (let i = 0; i < cuisine.length; i++) {
+                const button = document.getElementById(cuisine[i]);
+                if (button) button.classList.add('active');
+            }
+
+            for (let i = 0; i < activity.length; i++) {
+                const button = document.getElementById(activity[i]);
+                if (button) button.classList.add('active');
+            }
+        }
+
+        
+        $(document).ready(function() {
+            loadOnboarding1Data();
+        });
+
+        $(window).on('pageshow', function(event) {
+            if (event.originalEvent.persisted) {
+                loadOnboarding1Data();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-frame">
+            <div class="milestone" id="milestone1">
+                <span class="material-symbols-outlined milestone-symbol">person_search</span>
+                <label for="milestone1">What Are Your Interests?</label>
+            </div>
+            <div class="milestone" id="milestone2">
+                <span class="material-symbols-outlined milestone-symbol">person_pin_circle</span>
+                <label for="milestone2">What is your preferred location?</label>
+            </div>
+        </div>
+        <div class="right-frame">
+            <form action="submit_onboarding" method="post">
+                <div class="section">
+                    <h2>Main Course</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" id="Ramen" data-value="Ramen" onclick="selectOption(this, 'mainCourse')">Ramen</button>
+                        <button type="button" class="select-button" id="Dim sum" data-value="Dim sum" onclick="selectOption(this, 'mainCourse')">Dim sum</button>
+                        <button type="button" class="select-button" id="Buffet" data-value="Buffet" onclick="selectOption(this, 'mainCourse')">Buffet</button>
+                        <button type="button" class="select-button" id="Pho" data-value="Pho" onclick="selectOption(this, 'mainCourse')">Pho</button>
+                        <button type="button" class="select-button" id="Vegetarian" data-value="Vegetarian" onclick="selectOption(this, 'mainCourse')">Vegetarian</button>
+                        <button type="button" class="select-button" id="Barbecue" data-value="Barbecue" onclick="selectOption(this, 'mainCourse')">Barbecue</button>
+                        <button type="button" class="select-button" id="Chicken" data-value="Chicken" onclick="selectOption(this, 'mainCourse')">Chicken</button>
+                        <button type="button" class="select-button" id="Udon" data-value="Udon" onclick="selectOption(this, 'mainCourse')">Udon</button>
+                        <button type="button" class="select-button" id="Rice" data-value="Rice" onclick="selectOption(this, 'mainCourse')">Rice</button>
+                        <button type="button" class="select-button" id="Noodle" data-value="Noodle" onclick="selectOption(this, 'mainCourse')">Noodle</button>
+                        <button type="button" class="select-button" id="Seafood" data-value="Seafood" onclick="selectOption(this, 'mainCourse')">Seafood</button>
+                        <button type="button" class="select-button" id="Hotpot" data-value="Hotpot" onclick="selectOption(this, 'mainCourse')">Hotpot</button>
+                    </div>
+                    <input type="hidden" id="mainCourse" name="mainCourse">
+                </div>
+                <div class="section">
+                    <h2>Dessert/Drink</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" id="Cafe" data-value="Cafe" onclick="selectOption(this, 'dessert')">Cafe</button>
+                        <button type="button" class="select-button" id="Bar" data-value="Bar" onclick="selectOption(this, 'dessert')">Bar</button>
+                        <button type="button" class="select-button" id="Tea" data-value="Tea" onclick="selectOption(this, 'dessert')">Tea</button>
+                        <button type="button" class="select-button" id="Cake" data-value="Cake" onclick="selectOption(this, 'dessert')">Cake</button>
+                        <button type="button" class="select-button" id="Pancake" data-value="Pancake" onclick="selectOption(this, 'dessert')">Pancake</button>
+                    </div>
+                    <input type="hidden" id="dessert" name="dessert">
+                </div>
+                <div class="section">
+                    <h2>Cuisine</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" id="Indian" data-value="Indian" onclick="selectOption(this, 'cuisine')">Indian</button>
+                        <button type="button" class="select-button" id="Vietnamese" data-value="Vietnamese" onclick="selectOption(this, 'cuisine')">Vietnamese</button>
+                        <button type="button" class="select-button" id="French" data-value="French" onclick="selectOption(this, 'cuisine')">French</button>
+                        <button type="button" class="select-button" id="American" data-value="American" onclick="selectOption(this, 'cuisine')">American</button>
+                        <button type="button" class="select-button" id="Mexican" data-value="Mexican" onclick="selectOption(this, 'cuisine')">Mexican</button>
+                        <button type="button" class="select-button" id="Japanese" data-value="Japanese" onclick="selectOption(this, 'cuisine')">Japanese</button>
+                        <button type="button" class="select-button" id="Spanish" data-value="Spanish" onclick="selectOption(this, 'cuisine')">Spanish</button>
+                        <button type="button" class="select-button" id="Italian" data-value="Italian" onclick="selectOption(this, 'cuisine')">Italian</button>
+                        <button type="button" class="select-button" id="Korean" data-value="Korean" onclick="selectOption(this, 'cuisine')">Korean</button>
+                        <button type="button" class="select-button" id="Thai" data-value="Thai" onclick="selectOption(this, 'cuisine')">Thai</button>
+                    </div>
+                    <input type="hidden" id="cuisine" name="cuisine">
+                </div>
+                <div class="section">
+                    <h2>Activity</h2>
+                    <div class="button-container">
+                        <button type="button" class="select-button" id="Theater" data-value="Theater" onclick="selectOption(this, 'activity')">Theater</button>
+                        <button type="button" class="select-button" id="Live Music" data-value="Live Music" onclick="selectOption(this, 'activity')">Live Music</button>
+                        <button type="button" class="select-button" id="Music" data-value="Music" onclick="selectOption(this, 'activity')">Music</button>
+                        <button type="button" class="select-button" id="Outdoor" data-value="Outdoor" onclick="selectOption(this, 'activity')">Outdoor</button>
+                        <button type="button" class="select-button" id="Museum" data-value="Museum" onclick="selectOption(this, 'activity')">Museum</button>
+                        <button type="button" class="select-button" id="Sport" data-value="Sport" onclick="selectOption(this, 'activity')">Sport</button>
+                        <button type="button" class="select-button" id="Gallery" data-value="Gallery" onclick="selectOption(this, 'activity')">Gallery</button>
+                        <button type="button" class="select-button" id="Religion" data-value="Religion" onclick="selectOption(this, 'activity')">Religion</button>
+                        <button type="button" class="select-button" id="Library" data-value="Library" onclick="selectOption(this, 'activity')">Library</button>
+                        <button type="button" class="select-button" id="Shopping" data-value="Shopping" onclick="selectOption(this, 'activity')">Shopping</button>
+                    </div>
+                    <input type="hidden" id="activity" name="activity">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="button" class="skip-button" onclick = "skip()">Skip</button>
+        <button type="button" class="next-button" onclick = "storeOnboardingData()">Next</button>
+    </div>
+    <script src="onboarding1.js"></script>
+</body>
+</html>

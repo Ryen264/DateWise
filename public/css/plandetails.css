@@ -1,0 +1,250 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom right, #f8ce,#fff,#636ae8);
+}
+
+.yourplan {
+    font-size: 52px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.yourplan .your {
+    color: #000000;
+}
+
+.yourplan .plan {
+    color: #636ae8;
+}
+
+/* Main content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+}
+
+.body-container {
+    width: 80%;
+    max-width: 1200px;
+    background-color: #fafafb;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: -80px;
+    transform: scale(0.75);
+}
+
+/* Plan details */
+.plan-details {
+    margin: 20px 0;
+}
+
+.plan-item {
+    margin-bottom: 20px;
+    border-left: 5px solid #4a148c;
+    padding-left: 15px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plan-item h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4a148c;
+    margin-bottom: 10px;
+}
+
+.plan-content {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.plan-content .time {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 15px;
+    color: #6a1b9a;
+}
+
+.plan-content .details h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.plan-content .details p {
+    margin: 5px 0;
+    color: #666;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+/* Checkbox styling */
+.plan-item .keep-activity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.plan-item .keep-activity input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    accent-color: #636ae8; 
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+}
+
+
+.regenerate-button, .finish-button, .back-button {
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border-color: #636ae8;
+    color: #636ae8;
+    height: 50px;
+    width: 140px;
+    margin-top: 50px;
+}
+
+.back-button {
+    background-color: #fafafb;
+    color: #606062;
+    border-radius: 8px;
+    border: 1px solid #c3c3c3;
+    margin-left:20px;
+
+}
+
+.back-button:hover {
+    background-color: #E0E0E0;
+    border-color: #c3c3c3;
+}
+
+.regenerate-button {
+    background-color: #fafafb;
+    color: #636ae8;
+    border-radius: 8px;
+    border: 1px solid #636ae8;
+    margin-left:300px;
+    margin-right: 20px;
+}
+
+.regenerate-button:hover {
+    background-color: #E0E0E0;
+}
+
+.finish-button {
+    background-color: #636ae8;
+    color: white;
+    border: 1px solid #636ae8;
+}
+
+.finish-button:hover {
+    background-color: #a7abf5;
+}
+
+.highlight .highlight-title{
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 260px;
+}
+
+.highlight-title .highlight-of {
+    color: #000000;
+}
+
+.highlight-title .this-week {
+    color: #636ae8;
+}
+
+/* Background image container */
+.highlight .highlight-info .background-img {
+    position: relative;
+    width: 70%;
+    height: 70%;
+    margin: 40px auto;
+    z-index: 1;
+}
+
+/* Image styling */
+.highlight .highlight-info .background-img img {
+    width: 100%;
+    height: 100%;
+    opacity: 100%;
+    object-fit: cover; 
+    object-position: center;
+    align-items: center;
+}
+
+/* Highlight info container */
+.highlight .highlight-info .highlight-text {
+    position: absolute;
+    top: 45%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 10px; 
+    border-radius: 8px; 
+    z-index: 2;
+}
+
+/* Specific text styles */
+.highlight .highlight-info .highlight-text .price {
+    color: #636ae8; 
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.highlight .highlight-info .highlight-text .event-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.highlight .highlight-info .highlight-text .event-subtitle {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.highlight .highlight-info .highlight-text .event-date {
+    color: #636ae8; 
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.highlight .highlight-info .highlight-text .event-location {
+    color: white;
+    font-size: 14px;
+}
+
+
+.icon-calendar, .icon-location {
+    margin-right: 5px; 
+}
