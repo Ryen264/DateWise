@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DateWise - Planning</title>
+    <link rel="stylesheet" href="plandetails.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="date">Date</span><span class="wise">Wise</span>
+            </div>
+            <div class="user-profile">
+                <div class="btn">
+                    <button id="noti-icon" class="notification-button" onclick="location.href='../../../../DateWiseUI/homepage/homepage.html'">
+                        <img src="../../../../DateWiseUI/asset/icon/bell.svg" alt="Noti icon">
+                    </button>
+                </div>
+                <img src="../../../../DateWiseUI/asset/image/ava.png" alt="User Avatar">
+                <span>Amanda Smith</span>
+            </div>
+        </div>
+    </header>
+    <div class="yourplan">
+        <span class="your">Your</span> <span class="plan">Plan</span>
+    </div>
+    <div class="main-content">
+        <div class="body-container">
+            <section id="plan-details" class="plan-details">
+                <!-- taking data from data.js, working in plandetails.js -->
+            </section>
+            <div class="action-buttons">
+                <button type="button" class="back-button" onclick="location.href='../Planning/planning.html'">Back</button>
+                <button type="button" class="regenerate-button">Regenerate</button>
+                <button type="button" class="finish-button" onclick="location.href='../../../../DateWiseUI/homepage/homepage.html'">Finish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="highlight">
+        <div class="highlight-title">
+            <span class="highlight-of">Highlight of&nbsp;</span><span class="this-week">this week</span>
+        </div>
+        <div class="highlight-info">
+            <div class="background-img">
+                <img src="../../..//DateWiseUI/asset/image/highlight.png" alt="Highlight Image">
+                <div class="highlight-text">
+                    <p class="price">From 100.000.000đ</p>
+                    <p class="event-title">Brushstrokes & Beyond: An Oil</p>
+                    <p class="event-subtitle">Painting Odyssey</p>
+                    <p class="event-date"><span class="icon-calendar">📅</span> Tueday, June 7 | 06:00 PM</p>
+                    <p class="event-location"><span class="icon-location">📍</span> 267 Dien Bien Phu, District 10, HCMC</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-title">Contact Us</p>
+            <p>Email: <a href="mailto:datewise@spooners.com">datewise@spooners.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+            <p>Address: 123 Nguyen Van Cu Street, Ho Chi Minh City, Vietnam</p>
+            <p>&copy; 2024 Spooners. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="data.js"></script>
+    <script src="plandetails.js"></script>
+</body>
+</html>

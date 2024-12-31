@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
+body {
+    font-family: 'Archivo', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(to top left,#848aef,#fff, rgba(249, 179, 219, 0.933));
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Milestone styles */
+.milestones {
+    margin: 20px 0 0 50px;
+    position: relative;
+}
+
+.milestone {
+    display: flex;
+    align-items: center;
+    margin: 80px 0 170px 50px;
+}
+
+.milestone-symbol {
+    font-size: 61px;
+    margin-right: 10px;
+}
+
+.milestone-symbol.active {
+    background-color: #000;
+}
+
+.milestone label {
+    font-size: 34px;
+    font-weight: bold;
+    color: #555;
+}
+
+#milestone2 label {
+    font-size: 44px;
+    color: #191c21;
+}
+
+.milestone-symbol.active + label {
+    font-weight: bold;
+    font-size: 50px;
+    color: #000;
+}
+
+.milestones::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 50px;
+    height: calc(100% - 70px);
+    border-left: 2px dashed #ffffff;
+}
+
+/* Container and frame styles */
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.right-frame {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right */
+    justify-content: center; /* Center the section vertically */
+}
+
+.section {
+    width: 600px; /* Set the width of the section */
+    background-color: #ffffff; /* Background color for sections */
+    padding: 20px;
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space below the section */
+    margin-right: 0; /* Align sections to the right */
+}
+
+/* Location styles */
+.location-container {
+    display: flex;
+    gap: 20px;
+    padding: 5px;
+}
+
+.dropdown-section {
+    flex: 1;
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Select2 styles */
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* Prevent overflow */
+}
+
+.select2-container--default .select2-selection--single {
+    .select2-selection__rendered {
+        line-height: 38px;
+    }
+    .select2-selection__arrow {
+        height: 36px;
+    }
+}
+
+/* Added locations styles */
+.added-locations {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 100%; /* Ensure the container does not exceed the width of its parent */
+    overflow: auto; /* Handle overflow content */
+}
+
+.added-location {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+/* Footer styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.skip-button {
+    color: #b3b7be;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+.back-button {
+    padding: 10px;
+    border: 2px solid #f3f4f6;
+    background-color: #f3f4f6;
+    color: #7178847d;
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.finish-button{
+    padding: 10px;
+    border: 2px solid #636ae8;
+    background-color: #636ae8;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #f3f4f63b;
+    border-color: #f3f4f63b;
+}
+
+.back-button::before {
+    content: '←';
+    margin-right: 10px; 
+}
+
+.finish-button:hover {
+    background-color: #5056b3;
+    border-color: #5056b3;
+}
+
+.finish-button::after {
+    content: '→';
+    margin-left: 10px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 40;
+    font-size: 61px; 
+}

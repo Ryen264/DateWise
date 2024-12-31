@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DateWise - Planning</title>
+    <link rel="stylesheet" href="planning.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="date">Date</span><span class="wise">Wise</span>
+            </div>
+            <div class="user-profile">
+                <div class="btn">
+                    <button id="noti-icon" class="notification-button" onclick="location.href='../../../../DateWiseUI/homepage/homepage.html'">
+                        <img src="../../../../DateWiseUI/asset/icon/bell.svg" alt="Noti icon">
+                    </button>
+                </div>
+                <img src="../../../../DateWiseUI/asset/image/ava.png" alt="User Avatar">
+                <span>Amanda Smith</span>
+            </div>
+        </div>
+    </header>
+    <div class="yourplan">
+        <span class="your">Your</span> <span class="plan">Plan</span>
+    </div>
+    <div class="main-content">
+        <div class="body-container">
+            <div class="title">Planning Date</div>
+            <hr>
+            <div class="selection-boxes">
+                <div class="box">
+                    <h3>Cuisine</h3>
+                    <label><input type="checkbox" class="custom-checkbox" value="Japanese"> Japanese</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Korean"> Korean</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Chinese"> Chinese</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Thai"> Thai</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="American"> American</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Italian"> Italian</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Vietnamese"> Vietnamese</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Mexican"> Mexican</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Indian"> Indian</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Spanish"> Spanish</label>
+                </div>
+                <div class="box">
+                    <h3>Main Course</h3>
+                    <label><input type="checkbox" class="custom-checkbox" value="Ramen"> Ramen</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Dim Sum"> Dim Sum</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Buffet"> Buffet</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Pho"> Pho</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Vegetarian"> Vegetarian</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Barbecue"> Barbecue</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Chicken"> Chicken</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Udon"> Udon</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Rice"> Rice</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Noodle"> Noodle</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Seafood"> Seafood</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Hotpot"> Hotpot</label>
+                </div>
+                <div class="box">
+                    <h3>Dessert/Drink</h3>
+                    <label><input type="checkbox" class="custom-checkbox" value="Cafe"> Cafe</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Bar"> Bar</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Tea"> Tea</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Cake"> Cake</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Pancake"> Pancake</label>
+                </div>
+                <div class="box">
+                    <h3>Activities</h3>
+                    <label><input type="checkbox" class="custom-checkbox" value="Theater"> Theater</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Music"> Music</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Outdoor"> Outdoor</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Museum"> Museum</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Sport"> Sport</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Gallery"> Gallery</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Religion"> Religion</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Library"> Library</label>
+                    <label><input type="checkbox" class="custom-checkbox" value="Shopping"> Shopping</label>
+                </div>
+            </div>
+            <hr>
+            <div class="time-location-budget">
+                <div class="time-container">
+                    <div class="start-time-container">
+                        <label for="start-time-container">Start Time:</label>
+                        <select id="start-time-hour" class="time-select">
+                                <option value="" disabled selected>Hour</option>
+                                <!-- Options for hours -->
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                        </select>
+                        <select id="start-time-minute" class="time-select">
+                                <option value="" disabled selected>Minute</option>
+                                <!-- Options for minutes -->
+                                <option value="00">00</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                        </select>
+                    </div>
+                    <div class="end-time-container">
+                        <label for="end-time-container">End Time:</label>
+                        <select id="end-time-hour" class="time-select">
+                                <option value="" disabled selected>Hour</option>
+                                <!-- Options for hours -->
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                        </select>
+                        <select id="end-time-minute" class="time-select">
+                                <option value="" disabled selected>Minute</option>
+                                <!-- Options for minutes -->
+                                <option value="00">00</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="location-budget-container">
+                    <div class="location-container">
+                        <label for="location-container">Select District:</label>
+                        <select id="location" class="select-district">
+                            <option value="District 1">District 1</option>
+                            <option value="District 2">District 2</option>
+                            <option value="District 3">District 3</option>
+                            <option value="District 4">District 4</option>
+                            <option value="District 5">District 5</option>
+                            <option value="District 6">District 6</option>
+                            <option value="District 7">District 7</option>
+                            <option value="District 8">District 8</option>
+                            <option value="District 10">District 10</option>
+                            <option value="District 11">District 11</option>
+                            <option value="District 12">District 12</option>
+                        </select>
+                    </div>
+                    <div class="budget-container">
+                        <label for="min-budget">Min Budget:</label>
+                        <input type="number" id="min-budget" class="budget-input"  placeholder="VND">
+                        <span>-</span>
+                        <label for="max-budget">Max Budget:</label>
+                        <input type="number" id="max-budget" class="budget-input"  placeholder="VND">
+                    </div>
+                </div>
+            </div>  
+            <div class="action-buttons">
+                <button type="button" class="clear-button">Clear All</button>
+                <button type="button" class="apply-button">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="highlight">
+        <div class="highlight-title">
+            <span class="highlight-of">Highlight of&nbsp;</span><span class="this-week">this week</span>
+        </div>
+        <div class="highlight-info">
+            <div class="background-img">
+                <img src="../../..//DateWiseUI/asset/image/highlight.png" alt="Highlight Image">
+                <div class="highlight-text">
+                    <p class="price">From 100.000.000đ</p>
+                    <p class="event-title">Brushstrokes & Beyond: An Oil</p>
+                    <p class="event-subtitle">Painting Odyssey</p>
+                    <p class="event-date"><span class="icon-calendar">📅</span> Tueday, June 7 | 06:00 PM</p>
+                    <p class="event-location"><span class="icon-location">📍</span> 267 Dien Bien Phu, District 10, HCMC</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-title">Contact Us</p>
+            <p>Email: <a href="mailto:datewise@spooners.com">datewise@spooners.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+            <p>Address: 123 Nguyen Van Cu Street, Ho Chi Minh City, Vietnam</p>
+            <p>&copy; 2024 Spooners. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="planning.js"></script>
+</body>
+</html>

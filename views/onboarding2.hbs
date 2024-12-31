@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="left-frame">
+        <div class="milestone" id="milestone1">
+            <span class="material-symbols-outlined milestone-symbol">person_search</span>
+            <label for="milestone1">What Are Your Interests?</label>
+        </div>
+        <div class="milestone" id="milestone2">
+            <span class="material-symbols-outlined milestone-symbol">person_pin_circle</span>
+            <label for="milestone2">What is your preferred location?</label>
+        </div>
+    </div>
+    <div class="right-frame">
+        <form action="submit_onboarding" method="post">
+            <div class="section">
+                <h2>Looking for an event in </h2>
+                <div class="location-container">
+                    <div class="dropdown-section">
+                        <select id="location-dropdown" class="location-select" multiple>
+                            <option value="Thu Duc City">Thu Duc City</option>
+                            <option value="District 1">District 1</option>
+                            <option value="District 2">District 2</option>
+                            <option value="District 3">District 3</option>
+                            <option value="District 4">District 4</option>
+                            <option value="District 5">District 5</option>
+                            <option value="District 6">District 6</option>
+                            <option value="District 7">District 7</option>
+                            <option value="District 8">District 8</option>
+                            <option value="District 9">District 9</option>
+                            <option value="District 10">District 10</option>
+                            <option value="District 11">District 11</option>
+                            <option value="District 12">District 12</option>
+                            <option value="Binh Thanh District">Binh Thanh District</option>
+                            <option value="Tan Binh District">Tan Binh District</option>
+                            <option value="Tan Phu District">Tan Phu District</option>
+                            <option value="Go Vap District">Go Vap District</option>
+                            <option value="Binh Chanh District">Binh Chanh District</option>
+                            <option value="Cu Chi District">Cu Chi District</option>
+                            <option value="Hoc Mon District">Hoc Mon District</option>
+                            <option value="Nha Be District">Nha Be District</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="added-locations"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <button type="button" class="skip-button" onclick="skip()">Skip</button>
+    <div class="button-group">
+        <button type="button" class="back-button" onclick="back()">Back</button>
+        <button type="button" class="finish-button" onclick="finish()">Finish</button>
+    </div>
+</div>
+<script>
+    function back() {
+        const selectedLocations = $('#location-dropdown').val().join(',');
+        localStorage.setItem('selectedLocations', selectedLocations);
+        window.location.href = '/onboarding_1';
+    }
+    function finish() {
+        const mainCourse = localStorage.getItem('mainCourse') ? localStorage.getItem('mainCourse').split(',') : [];
+        const dessert = localStorage.getItem('dessert') ? localStorage.getItem('dessert').split(',') : [];
+        const cuisine = localStorage.getItem('cuisine') ? localStorage.getItem('cuisine').split(',') : [];
+        const activity = localStorage.getItem('activity') ? localStorage.getItem('activity').split(',') : [];
+        const selectedLocations = localStorage.getItem('selectedLocations') ? localStorage.getItem('selectedLocations').split(',') : [];
+        $.ajax({
+            url: '/submit_onboarding',
+            type: 'POST',
+            data: {
+                mainCourse: mainCourse, 
+                dessert: dessert, 
+                cuisine: cuisine, 
+                activity: activity, 
+                locations: selectedLocations
+            },
+            success: function(user) {
+                localStorage.clear();
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = '/';
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                console.log(error);
+            }
+        });
+    }
+
+    function skip() 
+    {
+        window.location.href = '/';
+    }
+
+    function loadOnboarding2Data() {
+        let selectedLocations = localStorage.getItem('selectedLocations').split(',') || [];
+        $('#location-dropdown').val(selectedLocations).trigger('change');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize select2
+        $('#location-dropdown').select2({
+            placeholder: 'Search for a location...',
+            allowClear: true,
+            width: 'resolve'
+        });
+
+        // Handle add location button click
+        document.querySelector('.add-location-button').addEventListener('click', function() {
+            const selectedLocations = $('#location-dropdown').val();
+            const addedLocationsContainer = document.querySelector('.added-locations');
+            addedLocationsContainer.innerHTML = ''; // Clear previous locations
+
+            selectedLocations.forEach(location => {
+                const locationElement = document.createElement('div');
+                locationElement.className = 'added-location';
+                locationElement.textContent = location;
+                addedLocationsContainer.appendChild(locationElement);
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        loadOnboarding2Data();
+    });
+
+    $(window).on('pageshow', function(event) {
+        if (event.originalEvent.persisted) {
+            loadOnboarding2Data();
+        }
+    });
+</script>
