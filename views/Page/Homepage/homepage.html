@@ -6,35 +6,27 @@
     <title>DateWise</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        localStorage.clear();
-        // if (localStorage.getItem('currentUser'))
-        {
-          $.ajax({
-          url: '/setCurrentUser',
-          type: 'POST',
-          data: {currentUser:JSON.parse(localStorage.getItem('currentUser'))},
-          success: function(res) {
-            localStorage.setItem('currentUser', JSON.stringify(res.user));
-          },
-          error: function(error) {
-            console.error('Error signing in:', error);
-          }
-        })
-        }
+    <!-- <script>
+      function userGeneralInfor(){
+        // localStorage.clear();
         $.ajax({
           url: '/getCurrentUser',
           type: 'GET',
-          success: function(user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+          success: function(res) {
+            localStorage.setItem('fullname', res.fullname);
+            localStorage.setItem('email', res.email);
+            
+            console.log(res);
           },
           error: function(error) {
+            localStorage.removeItem('fullname');
             console.error('Error signing in:', error);
           }
         })
-      })
-    </script>
+      }
+      userGeneralInfor();
+    </script> -->
+
 </head>
 <body>
     <header class="header">
@@ -49,9 +41,10 @@
                 <img src="ava.png" alt="User Avatar" onclick="location.href='../profile/profile.html'">
                 <span onclick="location.href=''">
                   <script>
-                    userFullName = JSON.parse(localStorage.getItem('currentUser')).USER_FNAME.split(' ');
-                    userLastName = userFullName[userFullName.length -1];
-                    localStorage.getItem('currentUser')? document.write(userLastName): document.write("Signin");
+                    let userFullName = localStorage.getItem('fullname').split(' ');
+                    let userLastName = userFullName[userFullName.length -1];
+                    userLastName ? document.write(userLastName): document.write("Signin");
+
                   </script>
                 </span>
             </div>

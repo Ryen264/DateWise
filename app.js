@@ -1,11 +1,3 @@
-// Import thư viện Express
-// require('dotenv').config(); 
-// const express = require('express');
-// const session = require('express-session');
-// const path = require('path');
-// const connectDB = require('./config/db'); 
-// const {loginUser, signupUser, handle_submit_onboarding} = require('./controllers/userController'); 
-
 import express from 'express';
 import expressHbs from 'express-handlebars';
 import session from 'express-session';
@@ -41,7 +33,6 @@ app.use(session({
 // Middleware to parse JSON bodies and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(__dirname + "/public"));
 
 app.engine(
@@ -114,7 +105,6 @@ app.get('/signup', (req, res) =>  {
   if (req.session.user)
     res.redirect('/');
   else
-    // res.sendFile(path.join(__dirname, 'views', 'Page', 'SignUp', 'signup.html'));
     res.render("signup", {
         title: "Sign Up",
         hasLayout: false,
@@ -192,7 +182,7 @@ app.get('/', (req, res) => {
 
 app.get('/getCurrentUser', (req, res) => {
   if (req.session.user) {
-    res.status(200).json(req.session.user);
+    res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
   } else {
     res.status(401).json({ message: 'User not authenticated' });
   }
