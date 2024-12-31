@@ -177,7 +177,7 @@ app.get("/locationdetails", (req, res) => {
 });
 app.post('/submit_onboarding', handle_submit_onboarding);
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Page', 'Homepage', 'homepage.html'));
+  res.redirect('/homepage');
 });
 
 app.get('/getCurrentUser', (req, res) => {

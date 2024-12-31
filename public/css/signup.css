@@ -127,23 +127,23 @@ body {
     color: #f3f4f6;
 }
 
-.footer p {
+.form-footer p {
     margin-top: 16px;
     text-align: center;
 }
 
-.footer a {
+.form-footer a {
     text-decoration: none;
     color: #636ae8;
 }
 
-.footer a:hover {
+.form-footer a:hover {
     text-decoration: underline;
 }
 
-.footer a:visited,
-.footer a:active,
-.footer a:focus,
-.footer a:link {
+.form-footer a:visited,
+.form-footer a:active,
+.form-footer a:focus,
+.form-footer a:link {
     color: #636ae8;
 }
