@@ -87,6 +87,7 @@ const handle_submit_onboarding = async(req, res) => {
             try {
                 await sessionUser.save(); // Save updated user information to the database
                 res.status(200).json({message: "add preferences successfully"});//, message: 'Onboarding data submitted successfully' });
+
             } catch (err) {
                 console.error('Error saving user data:', err);
                 res.status(500).json({ message: 'Internal server error' });
@@ -99,3 +100,4 @@ const handle_submit_onboarding = async(req, res) => {
 
 export {loginUser, signupUser, handle_submit_onboarding};
             
+

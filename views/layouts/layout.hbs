@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="{{css}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body>
+    {{#if hasLayout}}
+    <header class="header">
+        <div class="container">
+            <div class="logo" style="cursor: pointer;" onclick="location.href='/homepage'">DateWise</div>
+            <div class="user-profile">
+                <div class="btn">
+                    <button id="noti-icon" class="notification-button" onclick="location.href=''">
+                        <img src="/assets/icon/bell.svg" alt="Noti icon">
+                    </button>
+                </div>
+                <img src="/assets/image/ava.png" alt="User Avatar" onclick="location.href='../profile/profile.html'">
+                <span onclick="location.href=''">
+                  <script>
+                    userFullName = JSON.parse(localStorage.getItem('currentUser')).USER_FNAME.split(' ');
+                    userLastName = userFullName[userFullName.length -1];
+                    localStorage.getItem('currentUser')? document.write(userLastName): document.write("Signin");
+                  </script>
+                </span>
+            </div>
+        </div>
+    </header>
+    {{/if}}
+    <div class="main-content">
+        {{{body}}}
+    </div>
+    {{#if hasLayout}}
+    <footer class="footer">
+        <div class="footer-container">
+          <p class="footer-title">Contact Us</p>
+          <p>Email: <a href="">datewise@spooners.com</a></p>
+          <p>Phone: <a href="">+1 234 567 890</a></p>
+          <p>Address: 123 Nguyen Van Cu Street, Ho Chi Minh City, Vietnam</p>
+          <p>&copy; 2024 Spooners. All rights reserved.</p>
+        </div>
+    </footer>    
+    {{/if}}
+    <script src="script.js"></script>
+</body>
+</html>

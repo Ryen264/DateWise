@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+body {
+    font-family: 'Archivo', sans-serif; /* Set font to 'Archivo', sans-serif */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to top right,#848aef,#fff, rgba(249, 179, 219, 0.933));
+}
+
+.milestones {
+    margin-left: 50px; /* Left margin for the milestones */
+    margin-top: 20px; /* Top margin for spacing */
+    position: relative;
+}
+
+.milestone {
+    display: flex;
+    align-items: center;
+    margin-top: 80px; /* Increased space between milestones */
+    margin-bottom: 170px; /* Increased space between milestones */
+    margin-left: 50px; /* Adjusted left margin */
+}
+
+.milestone-symbol {
+    font-size: 61px; /* Adjust font size for material icons */
+    margin-right: 10px;
+}
+
+.milestone-symbol.active {
+    background-color: #000;
+}
+
+.milestone label {
+    font-size: 34px; /* Base font size for milestone labels */
+    font-family: 'Archivo', sans-serif;
+    font-weight: bold;
+    color: #555;
+}
+
+#milestone1 label {
+    font-size: 48px; /* Specific font size for "What Are Your Interests?" */
+    font-family: 'Archivo', sans-serif;
+    font-weight: bold;
+    color: #191c21; /* Specific color for "What Are Your Interests?" */
+}
+
+.milestone-symbol.active + label {
+    font-weight: bold;
+    font-size: 50px; /* Increased font size */
+    color: #000;
+}
+
+.milestones::before {
+    content: '';
+    position: absolute;
+    left: 32px; /* Adjust to align with milestone symbols */
+    top: 50px; /* Adjust to align with milestone symbols */
+    height: calc(100% - 70px); /* Adjust height to match the milestones */
+    border-left: 2px dashed #ffffff; /* Dashed vertical line color */
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    padding: 50px; /* Space around the container */
+    box-sizing: border-box;
+}
+
+.right-frame {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-right: 40px; /* Right margin for the right frame */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right */
+}
+
+.section {
+    margin-bottom: 20px;
+    background-color: #ffffff; /* Background color for sections */
+    padding: 20px;
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Adjust the width of the sections */
+    margin-right: 0; /* Align sections to the right */
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select-button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #f3f4f6; /* Initial color */
+    color: #000;
+    cursor: pointer;
+    border-radius: 20px; /* More rounded corners */
+    font-size: 16px; /* Increased font size by 2 units */
+}
+
+.select-button.active {
+    background-color: #636ae8; /* Active color */
+    color: #fff;
+}
+
+.select-button:hover {
+    background-color: #636ae8;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff; /* Footer background color */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+
+.skip-button {
+    color: #b3b7be; /* Skip button color */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.next-button {
+    padding: 10px 10px;
+    border: 2px solid #636ae8; /* Button border color */
+    background-color: #636ae8; /* Button background color */
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px; /* Less rounded corners */
+    display: flex;
+    align-items: center;
+    font-size: 16px; /* Increased font size by 2 units */
+}
+
+.next-button:hover {
+    background-color: #5056b3;
+    border-color: #5056b3;
+}
+
+.next-button::after {
+    content: '→'; /* Arrow symbol */
+    margin-left: 10px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 40;
+    font-size: 61px; 
+}
