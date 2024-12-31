@@ -1,15 +1,15 @@
-import {Users} from '../models/userAccount.js';
+import {Users} from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 
 const loginUser = async (req, res) => {
     const {email, password} = req.body;
     try {
-        const user = await Users.findOne({USER_EMAIL: email});
+        const user = await Users.findOne({email: email});
         if (user) {
-            const isMatch = await bcrypt.compare(password, user.USER_PASSWORD);
+            const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
               req.session.user = user;
-              res.status(200).json(user);
+              res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
             } else {
               res.status(401).json({ message: 'Invalid email or password' });
             }
@@ -23,9 +23,9 @@ const loginUser = async (req, res) => {
 };
 
 const signupUser = async (req, res) => {
-    const {fullname, dateofbirth, email, password, terms} = req.body;
+    const {email, password, fullname, dateOfBirth} = req.body;
     try {
-        const existingUser = await Users.findOne({USER_EMAIL: email});
+        const existingUser = await Users.findOne({email: email});
         if (existingUser) {
             return res.status(400).json({message: 'User already exists'});
         } 
@@ -39,51 +39,54 @@ const signupUser = async (req, res) => {
          newUserID = "USR-" + newUserID.toString().padStart(3, '0');
          const newUser = new Users({
             _id: newUserID,
-            USER_FNAME: fullname,
-            USER_EMAIL: email,
-            USER_PASSWORD: password,
-            USER_DOB: dateofbirth,
-            USER_DISTRICT: '', 
-            USER_CUISINES: [],
-            USER_MCOURSES: [], 
-            USER_DESSERTS: [], 
-            USER_ACTIVITIES: [] 
+            fullname: fullname,
+            email: email,
+            password: password,
+            dateOfBirth: dateOfBirth,
+            districts: [], 
+            cuisines: [],
+            mainCourses: [], 
+            desserts: [], 
+            activities: [],
+            favoriteLocations: [],
+            plans: []
           });
-      
+          console.log(newUser);
           await newUser.save();
+          
           req.session.user = newUser;
-          res.status(201).json(newUser);//redirect('/onboarding_1');
+          res.status(201).json({fullname: req.session.user.fullname, email:req.session.user.email});//redirect('/onboarding_1');
     } catch (err) {
-        console.log("failed signup");
+        console.log(err.message);
         res.status(500).json({ error: err.message });
     }
 };
 
 const handle_submit_onboarding = async(req, res) => {
-    // Extract data from the request body
-    const { mainCourse, dessert, cuisine, activity, locations } = req.body;
-
+    const mainCourses = req.body.mainCourses;
+    const desserts = req.body.desserts;
+    const cuisines = req.body.cuisines;
+    const activities = req.body.activities;
+    const districts = req.body.districts;
     if (req.session.user) {
         // Access user information from session
         const user = req.session.user;
-        
-        sessionUser = await Users.findOne({USER_EMAIL: user.USER_EMAIL});
+        let sessionUser = await Users.findOne({email: user.email});
         if (sessionUser !== null && sessionUser) {
         // Process onboarding data and update user information
-            if (mainCourse!=null && mainCourse)
-                sessionUser.USER_MCOURSES = mainCourse;
-            if (dessert!=null && dessert)
-                sessionUser.USER_DESSERTS = dessert;
-            if (cuisine !=null && cuisine)
-                sessionUser.USER_CUISINES = cuisine;
-            if (activity!=null && activity)
-                sessionUser.USER_ACTIVITIES = activity;
-            if (locations !=null && locations)
-            sessionUser.USER_DISTRICTS = locations;
-            req.session.user = sessionUser;
+            if (mainCourses!=null && mainCourses)
+                sessionUser.mainCourses = mainCourses;
+            if (desserts!=null && desserts)
+                sessionUser.desserts = desserts;
+            if (cuisines !=null && cuisines)
+                sessionUser.cuisines = cuisines;
+            if (activities!=null && activities)
+                sessionUser.activities = activities;
+            if (districts !=null && districts)
+                sessionUser.districts = districts;
             try {
                 await sessionUser.save(); // Save updated user information to the database
-                res.status(200).json({sessionUser});//, message: 'Onboarding data submitted successfully' });
+                res.status(200).json({message: "add preferences successfully"});//, message: 'Onboarding data submitted successfully' });
             } catch (err) {
                 console.error('Error saving user data:', err);
                 res.status(500).json({ message: 'Internal server error' });
@@ -92,7 +95,7 @@ const handle_submit_onboarding = async(req, res) => {
     } else {
         res.status(401).json({ message: 'User not authenticated' });
     }
-   
 };
 
 export {loginUser, signupUser, handle_submit_onboarding};
+            

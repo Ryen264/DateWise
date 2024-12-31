@@ -14,13 +14,15 @@
                 const email = $('#email').val();
                 const password = $('#password').val();
                 const fullname = $('#fullname').val();
-                const dateofbirth = $('#dateofbirth').val();
+                const dateOfBirth = $('#dateOfBirth').val();
+                console.log(dateOfBirth);
                 $.ajax({
                     url: '/signup',
                     type: 'POST',
-                    data: { email: email, password: password, fullname: fullname, dateofbirth: dateofbirth },
+                    data: { email: email, password: password, fullname: fullname, dateOfBirth: dateOfBirth },
                     success: function(user) {
-                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        localStorage.setItem('fullname', user.fullname);
+                        localStorage.setItem('email', user.email);
                         window.location.href = '/onboarding_1';
                     },
                     error: function(error) {
@@ -45,8 +47,8 @@
                 <input type="text" name="fullname" id="fullname" placeholder="NGUYEN VAN A" required>
             </div>
             <div class="form-group form-group-2">
-                <label for="dateofbirth">Date of Birth</label>
-                <input type="date" name="dateofbirth" id="dateofbirth" required>
+                <label for="dateOfBirth">Date of Birth</label>
+                <input type="date" name="dateOfBirth" id="dateOfBirth" required>
             </div>
             <div class="form-group form-group-3">
                 <label for="email">Email</label>

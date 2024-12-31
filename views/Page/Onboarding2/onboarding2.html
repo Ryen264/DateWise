@@ -30,21 +30,24 @@
             const dessert = localStorage.getItem('dessert') ? localStorage.getItem('dessert').split(',') : [];
             const cuisine = localStorage.getItem('cuisine') ? localStorage.getItem('cuisine').split(',') : [];
             const activity = localStorage.getItem('activity') ? localStorage.getItem('activity').split(',') : [];
-            const selectedLocations = localStorage.getItem('selectedLocations') ? localStorage.getItem('selectedLocations').split(',') : [];
+            const selectedLocations = $('#location-dropdown').val() ? localStorage.getItem('selectedLocations').split(',') : [];
             $.ajax({
                 url: '/submit_onboarding',
                 type: 'POST',
                 data: {
-                    mainCourse: mainCourse, 
-                    dessert: dessert, 
-                    cuisine: cuisine, 
-                    activity: activity, 
-                    locations: selectedLocations
+                    mainCourses: mainCourse, 
+                    desserts: dessert, 
+                    cuisines: cuisine, 
+                    activities: activity, 
+                    districts: selectedLocations
                 },
                 success: function(user) {
-                    localStorage.clear();
-                    localStorage.setItem('currentUser', JSON.stringify(user));
                     window.location.href = '/';
+                    localStorage.removeItem('mainCourse');
+                    localStorage.removeItem('dessert');
+                    localStorage.removeItem('cuisine');
+                    localStorage.removeItem('activity');
+                    localStorage.removeItem('selectedLocation');
                 },
                 error: function(error) {
                     console.error('Error:', error);

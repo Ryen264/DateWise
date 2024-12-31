@@ -1,11 +1,3 @@
-// Import thư viện Express
-// require('dotenv').config(); 
-// const express = require('express');
-// const session = require('express-session');
-// const path = require('path');
-// const connectDB = require('./config/db'); 
-// const {loginUser, signupUser, handle_submit_onboarding} = require('./controllers/userController'); 
-
 import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
@@ -72,15 +64,9 @@ app.get('/signup', (req, res) =>  {
 app.post('/signup', signupUser)
 
 app.get('/onboarding_1', (req, res) => {
-  if (req.session.user)
-    res.redirect('/');
-  else
     res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding1', 'onboarding1.html'));
 });
 app.get('/onboarding_2', (req, res) => {
-  if (req.session.user)
-    res.redirect('/');
-  else
     res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding2', 'onboarding2.html'));
 });
 
@@ -90,8 +76,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getCurrentUser', (req, res) => {
+  console.log(req.session.user);
   if (req.session.user) {
-    res.status(200).json(req.session.user);
+    res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
   } else {
     res.status(401).json({ message: 'User not authenticated' });
   }
