@@ -1,9 +1,54 @@
+--- START OF FILE style.css ---
+
 /* General styles */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+}
+
+/* Header */
+.header {
+    background-color: #ffffff;
+    padding: 1.5rem;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #6e5dfc;
+}
+
+.user-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.notification-button {
+    background-color: #ffffff;
+    border: 0;
+    cursor: pointer;
+}
+
+.user-profile img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+}
+
+.user-profile span {
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .main-content {
@@ -359,4 +404,165 @@ body {
 .heart-btn:hover {
     background-color: #fe6969;
     transition-duration: 0.2s;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-top: 3rem;
+}
+
+.footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer a {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+/* Style for homepage1.html */
+.location-group {
+    width: 100%;
+    /* Sử dụng toàn bộ chiều rộng */
+    max-width: 1100px;
+    /* Giới hạn chiều rộng tối đa */
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin: 50px auto;
+    /* Căn giữa slider */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.records-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    transition: transform 0.3s ease-in-out;
+}
+
+.location-record {
+  width: calc(100% / 3 - 20px);
+  /* Chia đều cho 3 locations */
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  float: left;
+  /* Các location sẽ nằm cạnh nhau */
+}
+
+.location-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.location-details {
+  padding: 15px;
+}
+
+.location-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.detail-item {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.detail-item .icon {
+  margin-right: 8px;
+  color: #f05656;
+  width: 16px;
+  text-align: center;
+}
+
+.price {
+  font-weight: bold;
+  color: #00b14f;
+}
+
+.heart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+}
+
+.heart-icon .icon {
+  margin: 0px;
+  color: #f05656;
+  width: 20px;
+  text-align: center;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.nav-btn {
+  /* Sửa lại style cho nút nav */
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0 5px;
+}
+
+.nav-buttons {
+    /* Canh giữa các nút nav */
+    text-align: center;
+    margin-top: 10px;
+}
+
+#locations-container {
+    /* Sửa lại container để chứa các nhóm */
+    display: block;
 }
