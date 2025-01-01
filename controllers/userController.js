@@ -68,6 +68,8 @@ const signupUser = async (req, res) => {
 };
 
 const handle_submit_onboarding = async(req, res) => {
+    console.log("hihi");
+    console.log(req.body);
     const mainCourses = req.body.mainCourses;
     const desserts = req.body.desserts;
     const cuisines = req.body.cuisines;
@@ -75,8 +77,8 @@ const handle_submit_onboarding = async(req, res) => {
     const districts = req.body.districts;
     if (req.session.user) {
         // Access user information from session
-        const user = req.session.user;
-        let sessionUser = await Users.findOne({email: user.email});
+        const email = req.session.user;
+        let sessionUser = await Users.findOne({email: email});
         if (sessionUser !== null && sessionUser) {
         // Process onboarding data and update user information
             if (mainCourses!=null && mainCourses)

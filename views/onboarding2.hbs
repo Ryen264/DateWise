@@ -52,33 +52,46 @@
         <button type="button" class="finish-button" onclick="finish()">Finish</button>
     </div>
 </div>
+
 <script>
     function back() {
         const selectedLocations = $('#location-dropdown').val().join(',');
-        localStorage.setItem('selectedLocations', selectedLocations);
+        localStorage.setItem('districts', selectedLocations);
         window.location.href = '/onboarding1';
     }
+
+    function skip() 
+    {
+        window.location.href = '/';
+    }
+
+    function loadOnboarding2Data() {
+        let selectedLocations = localStorage.getItem('districts').split(',') || [];
+        $('#location-dropdown').val(selectedLocations).trigger('change');
+    }
     function finish() {
-        const mainCourse = localStorage.getItem('mainCourse') ? localStorage.getItem('mainCourse').split(',') : [];
-        const dessert = localStorage.getItem('dessert') ? localStorage.getItem('dessert').split(',') : [];
-        const cuisine = localStorage.getItem('cuisine') ? localStorage.getItem('cuisine').split(',') : [];
-        const activity = localStorage.getItem('activity') ? localStorage.getItem('activity').split(',') : [];
-        const selectedLocations = localStorage.getItem('selectedLocations') ? localStorage.getItem('selectedLocations').split(',') : [];
+        const mainCourses = localStorage.getItem('mainCourses') ? localStorage.getItem('mainCourses').split(',') : [];
+        const desserts = localStorage.getItem('desserts') ? localStorage.getItem('desserts').split(',') : [];
+        const cuisines = localStorage.getItem('cuisines') ? localStorage.getItem('cuisines').split(',') : [];
+        const activities = localStorage.getItem('activities') ? localStorage.getItem('activities').split(',') : [];
+        const selectedLocations =  $('#location-dropdown').val() ? $('#location-dropdown').val() : [];
+        console.log(mainCourses);
         $.ajax({
             url: '/submit_onboarding',
             type: 'POST',
             data: {
-                mainCourse: mainCourse, 
-                dessert: dessert, 
-                cuisine: cuisine, 
-                activity: activity, 
-                locations: selectedLocations
+                mainCourses: mainCourses, 
+                desserts: desserts, 
+                cuisines: cuisines, 
+                activities: activities, 
+                districts: selectedLocations
             },
-            success: function(user) {
-                localStorage.removeItem('mainCourse');
-                localStorage.removeItem('dessert');
-                localStorage.removeItem('cuisine');
-                localStorage.removeItem('activity');
+            success: function(res) {
+                localStorage.removeItem('mainCourses');
+                localStorage.removeItem('desserts');
+                localStorage.removeItem('cuisines');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('districts');
                 window.location.href = '/';
             },
             error: function(error) {
@@ -88,15 +101,9 @@
         });
     }
 
-    function skip() 
-    {
-        window.location.href = '/';
-    }
+    
 
-    function loadOnboarding2Data() {
-        let selectedLocations = localStorage.getItem('selectedLocations').split(',') || [];
-        $('#location-dropdown').val(selectedLocations).trigger('change');
-    }
+    
 
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize select2

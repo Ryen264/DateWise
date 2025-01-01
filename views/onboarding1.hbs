@@ -98,10 +98,10 @@
         }
     }
     function skip() {
-        localStorage.removeItem('mainCourse');
-        localStorage.removeItem('dessert');
-        localStorage.removeItem('cuisine');
-        localStorage.removeItem('activity');
+        localStorage.removeItem('mainCourses');
+        localStorage.removeItem('desserts');
+        localStorage.removeItem('cuisines');
+        localStorage.removeItem('activities');
         let inputMainCourse = document.getElementById('mainCourse');
         inputMainCourse.value = '';
 
@@ -126,19 +126,19 @@
         const cuisine = document.getElementById('cuisine').value;
         const activity = document.getElementById('activity').value;
 
-        localStorage.setItem('mainCourse', mainCourse);
-        localStorage.setItem('dessert', dessert);
-        localStorage.setItem('cuisine', cuisine);
-        localStorage.setItem('activity', activity);
+        localStorage.setItem('mainCourses', mainCourse);
+        localStorage.setItem('desserts', dessert);
+        localStorage.setItem('cuisines', cuisine);
+        localStorage.setItem('activities', activity);
 
         window.location.href = '/onboarding2';
     }
 
     function loadOnboarding1Data() {
-        let mainCourse = localStorage.getItem('mainCourse') || '';
-        let dessert = localStorage.getItem('dessert') || '';
-        let cuisine = localStorage.getItem('cuisine') || '';
-        let activity = localStorage.getItem('activity') || '';
+        let mainCourse = localStorage.getItem('mainCourses') || '';
+        let dessert = localStorage.getItem('desserts') || '';
+        let cuisine = localStorage.getItem('cuisines') || '';
+        let activity = localStorage.getItem('activities') || '';
 
         const inputMainCourse = document.getElementById('mainCourse');
         inputMainCourse.value = mainCourse;
