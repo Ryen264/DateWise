@@ -88,6 +88,75 @@
         </div>        
     </div>
 
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">×</span>
+            <h2>Edit Profile</h2>
+            <div class="modal-body">
+                <div class="profile-info-section">
+                    <h3>Profile Information</h3>
+                    <div class="profile-pic-edit">
+                       <img id="profile-image-preview" src="../asset/image/ava.png" alt="Current Profile Picture" >
+                       <div>
+                           <input type="file" id="profile-image-input" accept="image/png, image/jpeg" style="display: none;" onchange="loadProfileImage(event)">
+                           <button onclick="document.getElementById('profile-image-input').click()" >Upload Photo</button>
+                           <button onclick="removeProfileImage()">Remove</button>
+                       </div>
+                   </div>
+                    <label for="full-name">Full name</label>
+                    <input type="text" id="full-name" value="Amanada Smith">
+                    <label for="email">Email address</label>
+                    <input type="text" id="email" value="lovetodate@gmail.com" readonly>
+                    <label for="date-of-birth">Date of birth</label>
+                    <input type="date" id="date-of-birth" value="2004-02-01">
+                    <label for="location">Location</label>
+                    <select id="location">
+                       <option value="Thu Duc City">Thu Duc City</option>
+                        <option value="District 1">District 1</option>
+                        <option value="District 2">District 2</option>
+                        <option value="District 3">District 3</option>
+                        <option value="District 4">District 4</option>
+                        <option value="District 5">District 5</option>
+                        <option value="District 6">District 6</option>
+                        <option value="District 7">District 7</option>
+                        <option value="District 8">District 8</option>
+                        <option value="District 10">District 10</option>
+                        <option value="District 11">District 11</option>
+                        <option value="District 12">District 12</option>
+                     </select>
+                </div>
+                <div class="password-section">
+                    <h3>Change Password</h3>
+                     <label for="current-password">Current Password</label>
+                     <div class="password-input">
+                        <input type="password" id="current-password" >
+                        <span class="password-toggle" onclick="togglePasswordVisibility('current-password')">
+                           <i class="fas fa-eye" id="eye-icon-current-password"></i>
+                        </span>
+                     </div>
+                    <label for="new-password">New Password</label>
+                     <div class="password-input">
+                        <input type="password" id="new-password" >
+                         <span class="password-toggle" onclick="togglePasswordVisibility('new-password')">
+                           <i class="fas fa-eye" id="eye-icon-new-password"></i>
+                         </span>
+                     </div>
+                    <label for="confirm-new-password">Confirm New Password</label>
+                     <div class="password-input">
+                         <input type="password" id="confirm-new-password">
+                         <span class="password-toggle" onclick="togglePasswordVisibility('confirm-new-password')">
+                           <i class="fas fa-eye" id="eye-icon-confirm-new-password"></i>
+                         </span>
+                    </div>
+                 </div>
+            </div>
+             <div class="modal-footer">
+                <button class="save-button" onclick="saveChanges()">Save</button>
+                 <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
+             </div>
+        </div>
+    </div>
+
 </div>
 <script>
     function logout() {
