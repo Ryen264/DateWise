@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import connectDB from './config/db.js';
-import {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile} from './controllers/userController.js';
+import {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password} from './controllers/userController.js';
 import {Users} from './models/userModel.js';
 dotenv.config();
 connectDB();
@@ -241,6 +241,8 @@ app.get('/logout', (req, res) => {
 
 
 app.post('/editprofile', handle_edit_profile);
+
+app.post('/changepassword', handle_change_password);
 app.listen(port, () => {
   console.log(`Server đang lắng nghe trên cổng ${port}`);
 });

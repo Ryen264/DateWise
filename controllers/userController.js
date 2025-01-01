@@ -117,7 +117,7 @@ const handle_edit_profile = async(req, res) => {
         let user = await Users.findOneAndUpdate(
             { email: email },
             { fullname: fullname, dateOfBirth: dateOfBirth, districts: districts },
-            { new: true } // Return the updated document
+            { new: true } 
         );
         if (user) {
             res.status(200).json({ message: 'Profile updated successfully', user: email});
@@ -130,6 +130,43 @@ const handle_edit_profile = async(req, res) => {
     }
 }
 
-export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile};
+const handle_change_password = async(req, res) => {
+    console.log(req.body);
+    const currentPassword = req.body.currentPassword;
+    const newPassword = req.body.newPassword;
+    const confirmNewPassword = req.body.confirmNewPassword;
+    if (currentPassword) {
+        let user = await Users.findOne({email: req.session.user});
+        if (user) {
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (isMatch) {
+                if (confirmNewPassword == newPassword){
+                    if (newPassword != currentPassword) {
+                        if (newPassword.length >= 8){
+                            user.password = newPassword;
+                            await user.save();
+                            res.status(200).json({message: 'Password updated successfully.'});
+                        }
+                        else{
+                            res.status(401).json({ message: 'The new password must contain at least 8 characters.'});
+                        }
+                    }
+                    else {
+                        res.status(401).json({ message: 'The new password cannot be the same as the current password.'});
+                    }
+                }
+                else {
+                    res.status(401).json({ message: 'The confirm password does not match the new password.'});
+                }
+            } else {
+                res.status(401).json({message: 'Password provided is incorrect.'});
+            }
+        } else {
+            res.status(401).json({ message: 'Error fetching user'});
+        }
+    }
+    else err.status(401).json({message: 'Password provided is incorrect.'});
+}
+export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password};
             
 
