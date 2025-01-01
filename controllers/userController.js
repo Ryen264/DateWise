@@ -32,7 +32,7 @@ const signupUser = async (req, res) => {
     try {
         const existingUser = await Users.findOne({email: email});
         if (existingUser) {
-            return res.status(400).json({message: 'User already exists'});
+            return res.status(400).json({message: 'This email address is already in use with another account.'});
         } 
 
         const lastuser = await Users.findOne().sort({ _id: -1 }).limit(1);

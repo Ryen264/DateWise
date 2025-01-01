@@ -20,7 +20,7 @@
         </div>
         <div class="form-group form-group-4">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter at least 8+ characters" required>
+            <input type="password" name="password" id="password" placeholder="Enter at least 8+ characters" minlength="8" required>
         </div>
         <div class="form-group form-group-5">
             <input type="checkbox" name="terms" id="terms" required>
@@ -28,6 +28,7 @@
         </div>
         <button type="submit" class="button">Sign up
         </button>
+        <div class="message-success" id="message-signup" style="text-align: center;"></div>
     </form>
     <div class="form-footer">
         <p>Already have an account? <a href="/signin">Sign In</a></p>
@@ -51,8 +52,13 @@
                     localStorage.setItem('email', user.email);
                     window.location.href = '/onboarding1';
                 },
-                error: function(error) {
-                    console.error('Error signing in:', error);
+                error: function(xhr, status, error) {
+                    let message = document.getElementById('message-signup');
+                    message.classList.remove('message-success');
+                    message.classList.add('message-error');
+                    message.textContent = xhr.responseJSON.message;
+                    console.error('Error:', xhr.responseJSON.message);
+                    console.log(error);
                 }
             });
         });
