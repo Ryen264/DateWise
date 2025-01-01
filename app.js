@@ -114,9 +114,6 @@ app.get('/signup', (req, res) =>  {
 app.post('/signup', signupUser)
 
 app.get('/onboarding1', (req, res) => {
-  if (req.session.user)
-    res.redirect('/');
-  else
     // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding1', 'onboarding1.html'));
     res.render("onboarding1", {
         title: "Onboarding",
@@ -125,9 +122,6 @@ app.get('/onboarding1', (req, res) => {
     });
 });
 app.get('/onboarding2', (req, res) => {
-  if (req.session.user)
-    res.redirect('/');
-  else
     // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding2', 'onboarding2.html'));
     res.render("onboarding2", {
         title: "Onboarding",

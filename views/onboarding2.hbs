@@ -56,7 +56,7 @@
     function back() {
         const selectedLocations = $('#location-dropdown').val().join(',');
         localStorage.setItem('selectedLocations', selectedLocations);
-        window.location.href = '/onboarding_1';
+        window.location.href = '/onboarding1';
     }
     function finish() {
         const mainCourse = localStorage.getItem('mainCourse') ? localStorage.getItem('mainCourse').split(',') : [];
@@ -75,8 +75,10 @@
                 locations: selectedLocations
             },
             success: function(user) {
-                localStorage.clear();
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.removeItem('mainCourse');
+                localStorage.removeItem('dessert');
+                localStorage.removeItem('cuisine');
+                localStorage.removeItem('activity');
                 window.location.href = '/';
             },
             error: function(error) {

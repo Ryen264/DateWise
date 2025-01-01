@@ -42,12 +42,13 @@
                     districts: selectedLocations
                 },
                 success: function(user) {
-                    window.location.href = '/';
+                    
                     localStorage.removeItem('mainCourse');
                     localStorage.removeItem('dessert');
                     localStorage.removeItem('cuisine');
                     localStorage.removeItem('activity');
                     localStorage.removeItem('selectedLocation');
+                    window.location.href = '/';
                 },
                 error: function(error) {
                     console.error('Error:', error);
