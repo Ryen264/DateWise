@@ -2,12 +2,12 @@
     <div class="profile-section">
         <div class="profile">
             <div class="profile-pic">
-                <img src="/assets/image/ava.png" alt="">
+                <img src="/assets/image/user.png" alt="">
             </div>
             <div class="profile-text">
-                <h2 class="fullname">Amanada Smith</h2>
-                <P><img src="/assets/icon/calendar.svg" alt=""> 01/02/2004</P>
-                <P><img src="/assets/icon/mail.svg" alt=""> lovetodate@gmail.com</P>
+                <h2 class="fullname">{{user.fullname}}</h2>
+                <P><img src="/assets/icon/calendar.svg" alt=""> {{formatDate user.dateOfBirth}}</P>
+                <P><img src="/assets/icon/mail.svg" alt=""> {{user.email}}</P>
                 <P><img src="/assets/icon/position.svg" alt=""> District 10, HCMC</P>
                 </ul>
             </div>

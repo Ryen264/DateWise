@@ -21,22 +21,22 @@
             success: function(res) {
                 localStorage.setItem('fullname', res.fullname);
                 localStorage.setItem('email', res.email);
-                
+                localStorage.setItem('login', true);
                 console.log(res);
             },
             error: function(error) {
-                localStorage.setItem('fullname', "Signin");
-                localStorage.removeItem('email');
+                localStorage.setItem('login', false);
+                //localStorage.setItem('fullname', "Signin");
+                //localStorage.removeItem('email');
                 console.error('Error signing in:', error);
             }
             })
         }
-        function navigation(userName){
-            console.log(userName);
-            if (userName === "Signin")
-                window.location.href = '/signin';
-            else
+        function navigation(login){
+            if (login)
                 window.location.href = '/profile';
+            else
+                window.location.href = '/signin';
         }
         userGeneralInfor();
     </script>
@@ -52,14 +52,9 @@
                         <img src="/assets/icon/bell.svg" alt="Noti icon">
                     </button>
                 </div>
-                <img src="/assets/image/user.png" alt="User Avatar" onclick="location.href='../profile/profile.html'">
-                <span id="user-lastname" onclick="navigation(localStorage.getItem('fullname'))"></span>
-                <script>
-                    let userFullNameStr = localStorage.getItem('fullname');
-                    let userFullName = userFullNameStr ? userFullNameStr.split(' ') : [];
-                    let userLastName = userFullName.length ? userFullName[userFullName.length - 1] : 'Signin';
-                    document.getElementById('user-lastname').textContent = userLastName;
-                </script>
+                <img src="/assets/image/user.png" alt="User Avatar" onclick="navigation(localStorage.getItem('login'))">
+                <span id="user-lastname" onclick="navigation(localStorage.getItem('login'))"> {{userLastName}}</span>
+               
             </div>
         </div>
     </header>

@@ -1,6 +1,7 @@
 import {Users} from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 
+
 const loginUser = async (req, res) => {
     const {email, password} = req.body;
     try {
@@ -8,7 +9,7 @@ const loginUser = async (req, res) => {
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
-              req.session.user = user;
+              req.session.user = req.body.email;
               res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
             } else {
               res.status(401).json({ message: 'Invalid email or password' });
@@ -58,7 +59,7 @@ const signupUser = async (req, res) => {
           console.log(newUser);
           await newUser.save();
           
-          req.session.user = newUser;
+          req.session.user = email;
           res.status(201).json({fullname: req.session.user.fullname, email:req.session.user.email});//redirect('/onboarding_1');
     } catch (err) {
         console.log(err.message);
@@ -102,6 +103,15 @@ const handle_submit_onboarding = async(req, res) => {
     }
 };
 
-export {loginUser, signupUser, handle_submit_onboarding};
+const showProfile = async(req, res) => {
+    console.log("hf");
+    res.render("profile", {
+        title: "Profile",
+        hasLayout: true,
+        css: "/css/profile.css",
+    });
+}
+
+export {loginUser, signupUser, handle_submit_onboarding, showProfile};
             
 

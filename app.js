@@ -6,8 +6,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import connectDB from './config/db.js';
-import {loginUser, signupUser, handle_submit_onboarding} from './controllers/userController.js';
-
+import {loginUser, signupUser, handle_submit_onboarding, showProfile} from './controllers/userController.js';
+import {Users} from './models/userModel.js';
 dotenv.config();
 connectDB();
 const __filename = fileURLToPath(import.meta.url);
@@ -130,9 +130,20 @@ app.get('/onboarding2', (req, res) => {
     });
 });
 
-app.get("/homepage", (req, res) => {
+app.get("/homepage", async (req, res) => {
+    let userLastName;
+    if (req.session.user)
+    {
+      let userData = await Users.findOne({email: req.session.user});
+      let userFullName = userData.fullname;
+      userFullName = userFullName.split(' ');
+      userLastName = userFullName[userFullName.length -1];
+    }
+    else userLastName = "Signin";
+    
     res.render("homepage", {
         title: "Homepage",
+        userLastName: userLastName,
         hasLayout: true,
         css: "/css/homepage.css",
     });
@@ -154,12 +165,20 @@ app.get("/plandetails", (req, res) => {
     });
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile", {
-        title: "Profile",
-        hasLayout: true,
-        css: "/css/profile.css",
-    });
+app.get("/profile", async (req, res) => {
+   if (req.session.user){
+      let userData = await Users.findOne({email: req.session.user});
+      console.log(userData);
+      res.render("profile", {
+          title: "Profile",
+          user: userData,
+          hasLayout: true,
+          css: "/css/profile.css",
+      });
+    }
+    else {
+      res.redirect('/signin');
+    }
 });
 
 app.get("/locationdetails", (req, res) => {
@@ -185,15 +204,6 @@ app.get('/getCurrentUser', (req, res) => {
   }
 })
 
-app.post('/setCurrentUser', (req, res) => {
-  const { currentUser } = req.body;
-  if (currentUser) {
-    req.session.user = currentUser; // Update session with currentUser data
-    res.status(200).json({ user: req.session.user });
-  } else {
-    res.status(400).json({ message: 'No user data provided' });
-  }
-})
 app.listen(port, () => {
   console.log(`Server đang lắng nghe trên cổng ${port}`);
 });
