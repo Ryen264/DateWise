@@ -176,6 +176,9 @@ app.get('/', (req, res) => {
 
 app.get('/getCurrentUser', (req, res) => {
   if (req.session.user) {
+    // let fullname = req.session.user.fullname;
+    // let fullNameArr = fullname.split(' ');
+    // let userLastName = fullNameArr.length ? fullNameArr[fullNameArr.length - 1] : 'Signin';
     res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
   } else {
     res.status(401).json({ message: 'User not authenticated' });
