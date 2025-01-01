@@ -209,7 +209,7 @@ app.get('/logout', (req, res) => {
     if (err) {
       return res.status(500).send('Failed to log out');
     }
-    res.redirect('/signin');
+    res.redirect('/');
   });
 });
 
