@@ -204,6 +204,16 @@ app.get('/getCurrentUser', (req, res) => {
   }
 })
 
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Failed to log out');
+    }
+    res.redirect('/signin');
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Server đang lắng nghe trên cổng ${port}`);
 });

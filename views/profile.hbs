@@ -8,11 +8,18 @@
                 <h2 class="fullname">{{user.fullname}}</h2>
                 <P><img src="/assets/icon/calendar.svg" alt=""> {{formatDate user.dateOfBirth}}</P>
                 <P><img src="/assets/icon/mail.svg" alt=""> {{user.email}}</P>
-                <P><img src="/assets/icon/position.svg" alt=""> District 10, HCMC</P>
+                <P><img src="/assets/icon/position.svg" alt=""> 
+                    {{#each user.districts }}
+                        {{this}}
+                    {{/each}}
+                </P>
                 </ul>
             </div>
         </div>
-        <button class="edit-button">Edit Profile</button>
+        <div>
+            <button class="edit-button">Edit Profile</button>
+            <button class="edit-button" onclick = "logout()">Log out </button>
+        </div>
     </div>
     
     <div class="section-02">
@@ -82,3 +89,20 @@
     </div>
 
 </div>
+<script>
+    function logout() {
+        
+        $.ajax({
+            url: '/logout',
+            type: 'GET',
+            success: function(res) {
+                localStorage.clear();
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                console.log(error);
+            }
+        });
+        window.location.href = '/';
+    }
+</script>
