@@ -157,11 +157,11 @@
                        </div>
                    </div>
                     <label for="fullname">Full name</label>
-                    <input type="text" id="fulname" value="{{user.fullname}}">
+                    <input type="text" id="fullname" value="{{user.fullname}}">
                     <label for="email">Email address</label>
                     <input type="text" id="email" value="{{user.email}}" readonly>
                     <label for="date-of-birth">Date of birth</label>
-                    <input type="date" id="date-of-birth" value="{{user.dateOfBirth}}">
+                    <input type="date" id="date-of-birth" value="{{{formatDateToISO user.dateOfBirth}}}">
                     <label for="location">Location</label>
                     <select id="location" multiple>
                        <option value="Thu Duc City">Thu Duc City</option>
@@ -185,10 +185,12 @@
                         <option value="Hoc Mon District">Hoc Mon District</option>
                         <option value="Nha Be District">Nha Be District</option>
                      </select>
-                <div class="modal-footer">
-                    <button class="save-button" onclick="saveChanges()">Update Profile</button>
-                    <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
-                </div>
+                    
+                    <div class="modal-footer">
+                        <button class="save-button" onclick="saveChanges()">Update Profile</button>
+                        <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                    <dive class="message-success" id="message-profile"></div>
                 </div>
                 <div class="password-section">
                     <h3>Change Password</h3>
@@ -263,7 +265,43 @@
     // Function to save changes
     function saveChanges() {
     // Implement saving logic here
-        closeEditModal(); // Close modal after saving
+        const fullname = $('#fullname').val();
+        const dateOfBirth = $('#date-of-birth').val() || '';
+        const districts = $('#location').val() || [];
+        if (!districts)
+            districts = [];
+        if (fullname)
+            $.ajax({
+                url: '/editprofile',
+                type: 'POST',
+                data: {
+                    fullname: fullname, 
+                    dateOfBirth: dateOfBirth, 
+                    districts: districts, 
+                },
+                success: function(user) {
+                    localStorage.setItem('fullname', user.fullname);
+                    let message = document.getElementById('message-profile');
+                    message.classList.remove('message-error');
+                    message.classList.add('message-success');
+                    message.textContent = "Profile updated successfully. Reload the page to apply changes.";
+                },
+                error: function(error) {
+                    let message = document.getElementById('message-profile');
+                    message.classList.remove('message-success');
+                    message.classList.add('message-error');
+                    message.textContent = "Error updating profile";
+                    console.error('Error:', error);
+                    console.log(error);
+                }
+            });
+        else {
+            let message = document.getElementById('message-profile');
+            message.classList.remove('message-success');
+            message.classList.add('message-error');
+            message.textContent = "Fullname must not left empty";
+        }
+        //closeEditModal(); // Close modal after saving
     }
 
     // Function to load profile image preview

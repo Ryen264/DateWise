@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import connectDB from './config/db.js';
-import {loginUser, signupUser, handle_submit_onboarding, showProfile} from './controllers/userController.js';
+import {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile} from './controllers/userController.js';
 import {Users} from './models/userModel.js';
 dotenv.config();
 connectDB();
@@ -46,6 +46,32 @@ app.engine(
             allowProtoPropertiesByDefault: true,
         },
         helpers: {
+            formatDateToMMDDYY: (date) => {
+              const options = {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit"
+              };
+              return new Intl.DateTimeFormat("en-US", options).format(date);
+            },
+
+            formatDateToISO: (date) => {
+              const d = new Date(date);
+              const year = d.getFullYear();
+              const month = String(d.getMonth() + 1).padStart(2, '0');
+              const day = String(d.getDate()).padStart(2, '0');
+              return `${year}-${month}-${day}`;
+            },
+            formatDateInNumeric: (date) => {
+                const d = new Date(date);
+                if (isNaN(d)) {
+                    return '';
+                }
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${month}/${day}/${year}`;
+            },
             formatDate: (date) => {
                 return new Date(date).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -214,6 +240,7 @@ app.get('/logout', (req, res) => {
 });
 
 
+app.post('/editprofile', handle_edit_profile);
 app.listen(port, () => {
   console.log(`Server đang lắng nghe trên cổng ${port}`);
 });
