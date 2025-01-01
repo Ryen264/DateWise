@@ -1,5 +1,54 @@
 <head>
-    <script scr="'editprofile.js"></script>
+    <script src="editprofile.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        // Parse selected locations from backend data
+        
+
+        // Initialize Select2
+        const locationDropdown = $('#location');
+        locationDropdown.select2({
+            placeholder: 'Search for a location',
+            allowClear: true,
+            width: 'resolve',
+        });
+
+        let selectedLocations = JSON.parse('{{{json user.districts}}}'); // Ensure proper serialization
+        
+        // Set default selected values
+        if (Array.isArray(selectedLocations)) {
+            selectedLocations.forEach(location => {
+                if (!locationDropdown.find(`option[value="${location}"]`).length) {
+                    locationDropdown.append(new Option(location, location, true, true));
+                }
+            });
+            locationDropdown.val(selectedLocations).trigger('change');
+        }
+
+        // Handle add location button click
+        document.querySelector('.add-location-button').addEventListener('click', function () {
+            const selectedLocations = locationDropdown.val();
+            const addedLocationsContainer = document.querySelector('.added-locations');
+            addedLocationsContainer.innerHTML = ''; // Clear previous locations
+
+            if (Array.isArray(selectedLocations)) {
+                selectedLocations.forEach(location => {
+                    const locationElement = document.createElement('div');
+                    locationElement.className = 'added-location';
+                    locationElement.textContent = location;
+                    addedLocationsContainer.appendChild(locationElement);
+                });
+            }
+        });
+    });
+
+
+
+        
+    </script>
 </head>
 
 <div class="main-content">
@@ -21,7 +70,7 @@
             </div>
         </div>
         <div>
-            <button class="edit-button">Edit Profile</button>
+            <button class="edit-button" onclick="openEditModal()">Edit Profile</button>
             <button class="edit-button" onclick = "logout()">Log out </button>
         </div>
     </div>
@@ -107,14 +156,14 @@
                            <button onclick="removeProfileImage()">Remove</button>
                        </div>
                    </div>
-                    <label for="full-name">Full name</label>
-                    <input type="text" id="full-name" value="Amanada Smith">
+                    <label for="fullname">Full name</label>
+                    <input type="text" id="fulname" value="{{user.fullname}}">
                     <label for="email">Email address</label>
-                    <input type="text" id="email" value="lovetodate@gmail.com" readonly>
+                    <input type="text" id="email" value="{{user.email}}" readonly>
                     <label for="date-of-birth">Date of birth</label>
-                    <input type="date" id="date-of-birth" value="2004-02-01">
+                    <input type="date" id="date-of-birth" value="{{user.dateOfBirth}}">
                     <label for="location">Location</label>
-                    <select id="location">
+                    <select id="location" multiple>
                        <option value="Thu Duc City">Thu Duc City</option>
                         <option value="District 1">District 1</option>
                         <option value="District 2">District 2</option>
@@ -127,7 +176,19 @@
                         <option value="District 10">District 10</option>
                         <option value="District 11">District 11</option>
                         <option value="District 12">District 12</option>
+                        <option value="Binh Thanh District">Binh Thanh District</option>
+                        <option value="Tan Binh District">Tan Binh District</option>
+                        <option value="Tan Phu District">Tan Phu District</option>
+                        <option value="Go Vap District">Go Vap District</option>
+                        <option value="Binh Chanh District">Binh Chanh District</option>
+                        <option value="Cu Chi District">Cu Chi District</option>
+                        <option value="Hoc Mon District">Hoc Mon District</option>
+                        <option value="Nha Be District">Nha Be District</option>
                      </select>
+                <div class="modal-footer">
+                    <button class="save-button" onclick="saveChanges()">Update Profile</button>
+                    <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
+                </div>
                 </div>
                 <div class="password-section">
                     <h3>Change Password</h3>
@@ -152,17 +213,38 @@
                            <i class="fas fa-eye" id="eye-icon-confirm-new-password"></i>
                          </span>
                     </div>
+                     <button class="save-button" onclick="saveChanges()">Change password</button>
                  </div>
+                
             </div>
-             <div class="modal-footer">
-                <button class="save-button" onclick="saveChanges()">Save</button>
-                 <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
-             </div>
+             
         </div>
     </div>
 
 </div>
 <script>
+    function toggleHeart(button) {
+        const heartIcon = button.querySelector("img");
+        if (heartIcon.src.includes("heart.svg")) {
+            // Switch to filled heart icon
+            heartIcon.src = "../asset/icon/heart-filled.svg";
+            button.style.backgroundColor = '#fe6969';
+        } else {
+            // Switch back to unfilled heart icon
+            heartIcon.src = "../asset/icon/heart.svg";
+            button.style.backgroundColor = '#8d8d8d';
+        }
+    }
+
+    function openEditModal() {
+        var modal = document.getElementById("editModal");
+        modal.style.display = "block";
+    }
+    function closeEditModal() {
+        var modal = document.getElementById("editModal");
+        modal.style.display = "none";
+    }
+
     function logout() {
         
         $.ajax({
@@ -177,5 +259,44 @@
             }
         });
         window.location.href = '/';
+    }
+    // Function to save changes
+    function saveChanges() {
+    // Implement saving logic here
+        closeEditModal(); // Close modal after saving
+    }
+
+    // Function to load profile image preview
+    function loadProfileImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+        
+    reader.onload = function(e) {
+            document.getElementById('profile-image-preview').src = e.target.result;
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+    }
+
+    // Function to remove profile image
+    function removeProfileImage() {
+        document.getElementById('profile-image-preview').src = "../asset/image/ava.png";
+        document.getElementById('profile-image-input').value = '';
+    }
+    function togglePasswordVisibility(inputId) {
+    const passwordInput = document.getElementById(inputId);
+    const passwordToggle = passwordInput.nextElementSibling;
+    const eyeIcon = passwordToggle.querySelector('i');
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+    }
     }
 </script>
