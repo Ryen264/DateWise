@@ -98,6 +98,7 @@ app.set("view engine", "hbs");
 global.locationData = [];
 global.tagData = [];
 global.userData = [];
+global.genPlan = null;
 
 // Định nghĩa route cho đường dẫn gốc ("/")
 
@@ -185,6 +186,21 @@ app.get("/plandetails", (req, res) => {
     });
 });
 app.get('/generatePlan', generatePlan);
+
+// app.get('/generatePlan', async (req, res) => {
+//   try {
+//     const planDetails = await generatePlan(req, res); // Pass req and res to the function
+//     global.genPlan = planDetails; // Store plan details in the global variable
+//     console.log("planDetails in app.js", planDetails);
+//     // Send the generated plan details as a response
+//     res.status(200).json(planDetails);
+//   } catch (error) {
+//     console.error('Error generating plan:', error);
+//     res.status(500).send({ error: 'Internal server error' });
+//   }
+// });
+
+
 
 app.get("/profile", async (req, res) => {
   if (req.session.user){

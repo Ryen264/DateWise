@@ -218,6 +218,10 @@ class Plan {
 
     // Step 3: Convert into list[dict] plan detail
     this.planDetail = [];
+    if(timeline === null) {
+      console.log('Failed to generate plan.');
+      return this.planDetail;
+    }
     timeline = Utils.removeDuplicateLocs(timeline);
     for (const [time, loc] of Object.entries(timeline)) {
       if (loc !== null) {

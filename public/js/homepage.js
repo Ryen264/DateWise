@@ -62,7 +62,7 @@ async function fetchLocations() {
         displayLocations();
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu địa điểm:', error);
-        document.getElementById('locations-container').innerHTML = '<p>Đã xảy ra lỗi khi lấy dữ liệu.</p>';
+        // document.getElementById('locations-container').innerHTML = '<p>Đã xảy ra lỗi khi lấy dữ liệu.</p>';
     }
 }
 
