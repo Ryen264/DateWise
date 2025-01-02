@@ -1,12 +1,12 @@
 --- START OF FILE style.css ---
 
-/* General styles */
+/* General styles
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-}
+} */
 
 /* Header */
 .header {
@@ -334,10 +334,14 @@ body {
     width: 100%;
 }
 
+.location-record {
+    background-color: #f4f4f4;
+}
+
 .slider-slide {
     position: relative;
     min-width: calc(100% / 3 - 5rem); /* Show 3 slides */
-    background: #fff;
+    background: #ffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* padding: 10px; */

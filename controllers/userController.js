@@ -104,6 +104,8 @@ const handle_submit_onboarding = async(req, res) => {
                 res.status(500).json({ message: 'Internal server error' });
             }
         }
+
+        res.redirect('/signin');
     } else {
         res.status(401).json({ message: 'User not authenticated' });
     }

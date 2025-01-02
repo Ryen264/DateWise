@@ -237,7 +237,14 @@ app.get('/users', async (req, res) => {
   res.json(global.userData);
 });
 app.get('/getCurrentUser1', async (req, res) => {
-  res.json(global.userData[0]);
+  // res.json(global.userData[0]);
+  if(req.session.user){
+    let userData = await Users.findOne({email: req.session.user});
+    res.json(userData);
+  } 
+  else{
+    res.json(null);
+  }
 });
 
 // Load tags data
