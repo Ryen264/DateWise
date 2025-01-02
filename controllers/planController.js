@@ -3,6 +3,9 @@ import { Locations } from '../models/locationModel.js';
 import LocationDataset from '../models/locationDataset.js';
 import PlanDataset from '../models/planDataset.js';
 import Plan from '../models/plan.js';
+
+import {Users} from '../models/userModel.js';
+
 import Utils from '../utils/utils.js';
 
 // Send data to the server
@@ -40,34 +43,38 @@ const generatePlan = async (req, res) => {
       // Load datasets
       const locationDataset = new LocationDataset();
       await locationDataset.initialize();
-      const userId = 'USR-001'; // TODO: Lấy userId từ session
+      
+      // Lấy userId từ req
+      let userData;
+      if(req.session.user) {
+        userData = await Users.findOne({email: req.session.user});
+      }
+      const userId = userData._id;
+      console.log('userId:', userId);
 
       // Find the most recent plan for the user based on plan id (format: yymmdd-hhmmss)
       const mostRecentPlan = await Plans.findOne({ PLAN_USER: userId }).sort({ _id: -1 });
 
-      // Lấy cái đầu tiên sau khi sort
-      // const mostRecentPlan = await Plans.find({ PLAN_USER: userId }).sort({ PLAN_ID: 1 }).limit(1);
-
+      // Tìm plan có id là '241112-001030'
+      // const mostRecentPlan = await Plans.findOne({ _id: '241112-001030' });
 
       console.log('Most recent plan:', mostRecentPlan);
 
       if (!mostRecentPlan) {
           return res.status(404).send({ message: 'No plans found for this user.' });
       }
-      // const planId = mostRecentPlan._id;
-      const planId = '250101-175042';
 
       // Press Make a new plan and give plan orders -> Get a Plan ID
-      const planDataset = new PlanDataset(
-          locationDataset,
-          avgTimePerLocation
-      );
-      await planDataset.initialize();
+      // const planDataset = new PlanDataset(
+      //     locationDataset,
+      //     avgTimePerLocation
+      // );
+      // await planDataset.initialize();
 
       const plan = new Plan(
-          planId,
-          planDataset,
+          mostRecentPlan,
           locationDataset,
+          avgTimePerLocation,
           maxPoolSize,
           budgetTimeRatio,
           budgetProbThreshold,
@@ -75,8 +82,6 @@ const generatePlan = async (req, res) => {
       );
 
       // console.log('LocationDataset:', locationDataset.data);
-      // 
-      console.log('PlanDataset:', planDataset.data);
       console.log('Plan', plan.data);
 
       // Generate plan and show Plan Detail

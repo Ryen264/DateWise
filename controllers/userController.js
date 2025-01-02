@@ -10,6 +10,8 @@ const loginUser = async (req, res) => {
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
               req.session.user = req.body.email;
+              req.session.newUserID = user._id;
+            
               res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
             } else {
               res.status(401).json({ message: 'Invalid email or password' });
@@ -60,6 +62,8 @@ const signupUser = async (req, res) => {
           await newUser.save();
           
           req.session.user = email;
+          req.session.newUserID = newUserID;
+        
           res.status(201).json({fullname: req.session.user.fullname, email:req.session.user.email});//redirect('/onboarding_1');
     } catch (err) {
         console.log(err.message);

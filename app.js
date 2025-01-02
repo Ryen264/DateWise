@@ -7,9 +7,13 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import connectDB from './config/db.js';
 
+// Import controllers
 import {getUser, loginUser, signupUser, handle_submit_onboarding} from './controllers/userController.js';
 import {getLocations} from './controllers/locationController.js';
 import {createPlan, getTags, generatePlan} from './controllers/planController.js';
+
+// Import models
+import {Users} from './models/userModel.js';
 
 dotenv.config();
 connectDB();
@@ -123,43 +127,53 @@ app.get('/signup', (req, res) =>  {
 app.post('/signup', signupUser)
 
 app.get('/onboarding1', (req, res) => {
-  if (req.session.user)
-    res.redirect('/');
-  else
-    // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding1', 'onboarding1.html'));
-    res.render("onboarding1", {
-        title: "Onboarding",
-        hasLayout: false,
-        css: "/css/onboarding1.css",
-    });
+  // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding1', 'onboarding1.html'));
+  res.render("onboarding1", {
+      title: "Onboarding",
+      hasLayout: false,
+      css: "/css/onboarding1.css",
+  });
 });
 app.get('/onboarding2', (req, res) => {
+  // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding2', 'onboarding2.html'));
+  res.render("onboarding2", {
+      title: "Onboarding",
+      hasLayout: false,
+      css: "/css/onboarding2.css",
+  });
+});
+
+app.get("/homepage", async (req, res) => {
+  let userLastName;
   if (req.session.user)
-    res.redirect('/');
-  else
-    // res.sendFile(path.join(__dirname, 'views', 'Page', 'Onboarding2', 'onboarding2.html'));
-    res.render("onboarding2", {
-        title: "Onboarding",
-        hasLayout: false,
-        css: "/css/onboarding2.css",
-    });
-});
-app.post('/submit_onboarding', handle_submit_onboarding);
-
-app.get("/homepage", (req, res) => {
-    res.render("homepage", {
-        title: "Homepage",
-        hasLayout: true,
-        css: "/css/homepage.css",
-    });
+  {
+    let userData = await Users.findOne({email: req.session.user});
+    let userFullName = userData.fullname;
+    userFullName = userFullName.split(' ');
+    userLastName = userFullName[userFullName.length -1];
+  }
+  else userLastName = "Signin";
+  
+  res.render("homepage", {
+      title: "Homepage",
+      userLastName: userLastName,
+      hasLayout: true,
+      css: "/css/homepage.css",
+  });
 });
 
-app.get("/planning", (req, res) => {
-    res.render("planning", {
+app.get("/planning", async (req, res) => {
+
+    if (req.session.user){
+      let userData = await Users.findOne({email: req.session.user});
+
+      res.render("planning", {
         title: "Planning",
+        userID: userData._id,
         hasLayout: true,
         css: "/css/planning.css",
-    });
+      });
+    }
 });
 app.post('/createPlan', createPlan);
 
@@ -172,12 +186,20 @@ app.get("/plandetails", (req, res) => {
 });
 app.get('/generatePlan', generatePlan);
 
-app.get("/profile", (req, res) => {
-    res.render("profile", {
-        title: "Profile",
-        hasLayout: true,
-        css: "/css/profile.css",
-    });
+app.get("/profile", async (req, res) => {
+  if (req.session.user){
+     let userData = await Users.findOne({email: req.session.user});
+     console.log(userData);
+     res.render("profile", {
+         title: "Profile",
+         user: userData,
+         hasLayout: true,
+         css: "/css/profile.css",
+     });
+   }
+   else {
+     res.redirect('/signin');
+   }
 });
 
 app.get("/locationdetails", (req, res) => {
@@ -187,6 +209,7 @@ app.get("/locationdetails", (req, res) => {
         css: "/css/locationdetails.css",
     });
 });
+app.post('/submit_onboarding', handle_submit_onboarding);
 
 // Load locations data
 getLocations()
@@ -216,7 +239,6 @@ app.get('/users', async (req, res) => {
 app.get('/getCurrentUser1', async (req, res) => {
   res.json(global.userData[0]);
 });
-
 
 // Load tags data
 getTags()
@@ -260,7 +282,7 @@ async function loadFetch() {
 
 loadFetch();
 
-
+// Default route
 app.get('/', (req, res) => {
   res.redirect('/homepage');
 });

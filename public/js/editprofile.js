@@ -46,7 +46,7 @@ function loadProfileImage(event) {
 // Function to remove profile image
 function removeProfileImage() {
     document.getElementById('profile-image-preview').src = "../asset/image/ava.png";
-     document.getElementById('profile-image-input').value = '';
+    document.getElementById('profile-image-input').value = '';
 }
 function togglePasswordVisibility(inputId) {
   const passwordInput = document.getElementById(inputId);

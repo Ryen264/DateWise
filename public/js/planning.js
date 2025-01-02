@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const endTimeString = endTimeFloat.toFixed(1); // Format to one decimal place
 
         const now = new Date();
-        const year = now.getFullYear().toString().slice(-2); // Get last 2 digits of year
+        const year = now.getFullYear().toString().slice();
         const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month (0-11)
         const day = now.getDate().toString().padStart(2, '0');
         const hours = now.getHours().toString().padStart(2, '0');
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Send data to the server
         const data = {
           _id: planId,
-          PLAN_USER: 'USR-001', // Thay bằng giá trị user ID thích hợp
+          PLAN_USER: window.currentUserId, // Thay bằng giá trị user ID thích hợp
           PLAN_DATE: `${day}/${month}/${year}`,
           PLAN_DISTRICT: selectedLocation,
           PLAN_MAXBUDGET: maxBudget,
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
           PLAN_CUISINES: selectedCuisines,
           PLAN_MCOURSES: selectedMainCourses,
           PLAN_DESSERTS: selectedDesserts,
-          PLAN_ACTIVITES: selectedActivities,
+          PLAN_ACTIVITIES: selectedActivities,
         };
     
         sendDataToServer(data);
