@@ -31,27 +31,23 @@ class Plan {
     this.maxOthersNum = maxLocsNum - this.restaurantsNum || 1;
     // this.restaurants = planDataset.getRestaurants(planId);
     // this.others = planDataset.getOthers(planId);
-  
-    if (!(planDataset instanceof PlanDataset)) {
-      throw new Error('Invalid planDataset: Must be an instance of PlanDataset');
-    }
     if (!(locationDataset instanceof LocationDataset)) {
       throw new Error('Invalid locationDataset: Must be an instance of LocationDataset');
     }
 
-    this.id = planId;
-    this.budget = planDataset.getBudget(planId);
-    this.startTime = planDataset.getStartTime(planId);
-    this.endTime = planDataset.getEndTime(planId);
-    this.hoursSum = planDataset.getHoursSum(planId);
-    this.isLunchTime = planDataset.getIsLunchTime(planId);
-    this.isDinnerTime = planDataset.getIsDinnerTime(planId);
-    this.restaurantsNum = planDataset.getRestaurantsNum(planId);
-    this.maxOthersNum = planDataset.getMaxOthersNum(planId);
-    this.restaurants = planDataset.getRestaurants(planId);
-    this.others = planDataset.getOthers(planId);
-    this.budgetProbThreshold = budgetProbThreshold;
-    this.timeThreshold = timeThreshold;
+    // this.id = planId;
+    // this.budget = planDataset.getBudget(planId);
+    // this.startTime = planDataset.getStartTime(planId);
+    // this.endTime = planDataset.getEndTime(planId);
+    // this.hoursSum = planDataset.getHoursSum(planId);
+    // this.isLunchTime = planDataset.getIsLunchTime(planId);
+    // this.isDinnerTime = planDataset.getIsDinnerTime(planId);
+    // this.restaurantsNum = planDataset.getRestaurantsNum(planId);
+    // this.maxOthersNum = planDataset.getMaxOthersNum(planId);
+    // this.restaurants = planDataset.getRestaurants(planId);
+    // this.others = planDataset.getOthers(planId);
+    // this.budgetProbThreshold = budgetProbThreshold;
+    // this.timeThreshold = timeThreshold;
     const plan_district = planDocument.PLAN_DISTRICT || 'District 1';
     const districtLocations = locationDataset
         .getLocations()

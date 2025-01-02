@@ -9,6 +9,7 @@ import connectDB from './config/db.js';
 import {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password} from './controllers/userController.js';
 import {getLocations} from './controllers/locationController.js'; //merge with branch quynh-huong-2106
 import {createPlan, getTags, generatePlan} from './controllers/planController.js'; //
+import {getUser} from './controllers/userController.js';
 import {Users} from './models/userModel.js';
 
 dotenv.config();
@@ -394,32 +395,32 @@ app.get('/tags', async (req, res) => {
   res.json(global.tagData);
 });
 
-// Function to load image of location's records
-async function loadFetch() {
-  const { default: fetch } = await import('node-fetch');
+// // Function to load image of location's records
+// async function loadFetch() {
+//   const { default: fetch } = await import('node-fetch');
 
-  app.get('/proxy-image', async (req, res) => {
-    const imageUrl = req.query.url;
-    if (!imageUrl) {
-      return res.status(400).send('Missing image URL');
-    }
+//   app.get('/proxy-image', async (req, res) => {
+//     const imageUrl = req.query.url;
+//     if (!imageUrl) {
+//       return res.status(400).send('Missing image URL');
+//     }
 
-    try {
-      const response = await fetch(imageUrl);
-      if (!response.ok) {
-        return res.status(response.status).send(response.statusText);
-      }
+//     try {
+//       const response = await fetch(imageUrl);
+//       if (!response.ok) {
+//         return res.status(response.status).send(response.statusText);
+//       }
 
-      const imageBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(imageBuffer);
-      res.set('Content-Type', response.headers.get('content-type'));
-      res.send(buffer);
-    } catch (error) {
-      console.error('Error fetching image:', error);
-      res.status(500).send('Error fetching image');
-    }
-  });
-}
+//       const imageBuffer = await response.arrayBuffer();
+//       const buffer = Buffer.from(imageBuffer);
+//       res.set('Content-Type', response.headers.get('content-type'));
+//       res.send(buffer);
+//     } catch (error) {
+//       console.error('Error fetching image:', error);
+//       res.status(500).send('Error fetching image');
+//     }
+//   });
+// }
 
 loadFetch();
 

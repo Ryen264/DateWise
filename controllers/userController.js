@@ -105,7 +105,7 @@ const handle_submit_onboarding = async(req, res) => {
             }
         }
 
-        res.redirect('/signin');
+        // res.redirect('/signin');
     } else {
         res.status(401).json({ message: 'User not authenticated' });
     }
@@ -147,8 +147,7 @@ const getUser = async (req, res) => {
     }
 }
 
-export {getUser, loginUser, signupUser, handle_submit_onboarding, showProfile};
-=======
+
 const handle_change_password = async(req, res) => {
     console.log(req.body);
     const currentPassword = req.body.currentPassword;
@@ -186,6 +185,6 @@ const handle_change_password = async(req, res) => {
     }
     else err.status(401).json({message: 'Password provided is incorrect.'});
 }
-export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password};
+export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password, getUser};
             
 
