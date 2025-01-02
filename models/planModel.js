@@ -33,4 +33,3 @@ const Tags = mongoose.model('Tags', tagSchema);
 const AverageSpendingTime = mongoose.model('AverageSpendingTime', averageSpendingTimeSchema);
 
 export {Plans, Tags, AverageSpendingTime};
-

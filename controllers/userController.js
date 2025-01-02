@@ -34,7 +34,7 @@ const signupUser = async (req, res) => {
     try {
         const existingUser = await Users.findOne({email: email});
         if (existingUser) {
-            return res.status(400).json({message: 'User already exists'});
+            return res.status(400).json({message: 'This email address is already in use with another account.'});
         } 
 
         const lastuser = await Users.findOne().sort({ _id: -1 }).limit(1);
@@ -111,13 +111,29 @@ const handle_submit_onboarding = async(req, res) => {
     }
 };
 
-const showProfile = async(req, res) => {
-    console.log("hf");
-    res.render("profile", {
-        title: "Profile",
-        hasLayout: true,
-        css: "/css/profile.css",
-    });
+const handle_edit_profile = async(req, res) => {
+    console.log(req.body);
+    const fullname = req.body.fullname;
+    const dateOfBirth = req.body.dateOfBirth;
+    let districts = req.body.districts;
+    if (!districts)
+        districts = [];
+    const email = req.session.user;
+    try {
+        let user = await Users.findOneAndUpdate(
+            { email: email },
+            { fullname: fullname, dateOfBirth: dateOfBirth, districts: districts },
+            { new: true } 
+        );
+        if (user) {
+            res.status(200).json({ message: 'Profile updated successfully', user: email});
+        } else {
+            res.status(404).json({ message: 'Some errors occured' });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ error: err.message });
+    }
 }
 
 const getUser = async (req, res) => {
@@ -132,5 +148,44 @@ const getUser = async (req, res) => {
 }
 
 export {getUser, loginUser, signupUser, handle_submit_onboarding, showProfile};
+=======
+const handle_change_password = async(req, res) => {
+    console.log(req.body);
+    const currentPassword = req.body.currentPassword;
+    const newPassword = req.body.newPassword;
+    const confirmNewPassword = req.body.confirmNewPassword;
+    if (currentPassword) {
+        let user = await Users.findOne({email: req.session.user});
+        if (user) {
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (isMatch) {
+                if (confirmNewPassword == newPassword){
+                    if (newPassword != currentPassword) {
+                        if (newPassword.length >= 8){
+                            user.password = newPassword;
+                            await user.save();
+                            res.status(200).json({message: 'Password updated successfully.'});
+                        }
+                        else{
+                            res.status(401).json({ message: 'The new password must contain at least 8 characters.'});
+                        }
+                    }
+                    else {
+                        res.status(401).json({ message: 'The new password cannot be the same as the current password.'});
+                    }
+                }
+                else {
+                    res.status(401).json({ message: 'The confirm password does not match the new password.'});
+                }
+            } else {
+                res.status(401).json({message: 'Password provided is incorrect.'});
+            }
+        } else {
+            res.status(401).json({ message: 'Error fetching user'});
+        }
+    }
+    else err.status(401).json({message: 'Password provided is incorrect.'});
+}
+export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password};
             
 

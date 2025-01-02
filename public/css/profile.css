@@ -477,3 +477,13 @@ body {
 .cancel-button:hover {
     background-color: #bbb;
 }
+
+.message-success {
+    color: #2ec700;
+    font-size: 1rem;
+}
+
+.message-error {
+    color: #d51613;
+    font-size: 1rem;
+}

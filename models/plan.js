@@ -1,7 +1,6 @@
 import Utils from '../utils/utils.js';
 import PlanDataset from './planDataset.js';
 import LocationDataset from './locationDataset.js';
-
 import {Plans} from '../models/planModel.js';
 
 class Plan {
@@ -32,10 +31,27 @@ class Plan {
     this.maxOthersNum = maxLocsNum - this.restaurantsNum || 1;
     // this.restaurants = planDataset.getRestaurants(planId);
     // this.others = planDataset.getOthers(planId);
+  
+    if (!(planDataset instanceof PlanDataset)) {
+      throw new Error('Invalid planDataset: Must be an instance of PlanDataset');
+    }
+    if (!(locationDataset instanceof LocationDataset)) {
+      throw new Error('Invalid locationDataset: Must be an instance of LocationDataset');
+    }
 
+    this.id = planId;
+    this.budget = planDataset.getBudget(planId);
+    this.startTime = planDataset.getStartTime(planId);
+    this.endTime = planDataset.getEndTime(planId);
+    this.hoursSum = planDataset.getHoursSum(planId);
+    this.isLunchTime = planDataset.getIsLunchTime(planId);
+    this.isDinnerTime = planDataset.getIsDinnerTime(planId);
+    this.restaurantsNum = planDataset.getRestaurantsNum(planId);
+    this.maxOthersNum = planDataset.getMaxOthersNum(planId);
+    this.restaurants = planDataset.getRestaurants(planId);
+    this.others = planDataset.getOthers(planId);
     this.budgetProbThreshold = budgetProbThreshold;
     this.timeThreshold = timeThreshold;
-
     const plan_district = planDocument.PLAN_DISTRICT || 'District 1';
     const districtLocations = locationDataset
         .getLocations()
@@ -64,7 +80,6 @@ class Plan {
           plan_desserts.includes(locationDataset.getTag(loc)) ||
           plan_activities.includes(locationDataset.getTag(loc))
     );
-
     // Generate plan pool for each plan
     const maxIterations = this.maxOthersNum;
     let planLocsLst = [];
@@ -234,7 +249,6 @@ class Plan {
     }
     return this.planDetail;
   }
-
   async acceptPlan() {
     try{
       // Step 4: Save plan detail to database
@@ -245,6 +259,7 @@ class Plan {
     } catch (error) {
       console.error('Failed to accept plan:', error);
     }
+
   }
 }
 

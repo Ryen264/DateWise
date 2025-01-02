@@ -43,7 +43,6 @@ const generatePlan = async (req, res) => {
       // Load datasets
       const locationDataset = new LocationDataset();
       await locationDataset.initialize();
-      
       // Lấy userId từ req
       let userData;
       if(req.session.user) {
@@ -51,12 +50,9 @@ const generatePlan = async (req, res) => {
       }
       const userId = userData._id;
       console.log('userId:', userId);
-
       // Find the most recent plan for the user based on plan id (format: yymmdd-hhmmss)
       const mostRecentPlan = await Plans.findOne({ PLAN_USER: userId }).sort({ _id: -1 });
 
-      // Tìm plan có id là '241112-001030'
-      // const mostRecentPlan = await Plans.findOne({ _id: '241112-001030' });
 
       console.log('Most recent plan:', mostRecentPlan);
 
@@ -111,10 +107,5 @@ const generatePlan = async (req, res) => {
 };
 
 export { createPlan, getTags, generatePlan };
-
-
-
-
-
 
 

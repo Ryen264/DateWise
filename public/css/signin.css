@@ -114,3 +114,13 @@ button:hover {
 .form-footer a:link {
     color: #636ae8;
 }
+
+.message-success {
+    color: #2ec700;
+    font-size: 1rem;
+}
+
+.message-error {
+    color: #d51613;
+    font-size: 1rem;
+}

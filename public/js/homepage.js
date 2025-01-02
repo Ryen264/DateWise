@@ -1,4 +1,16 @@
 // public/js/script2.js
+function toggleHeart(button) {
+    const heartIcon = button.querySelector("img");
+    if (heartIcon.src.includes("heart.svg")) {
+        // Switch to filled heart icon
+        heartIcon.src = "/assets/icon/heart-filled.svg";
+        button.style.backgroundColor = '#fe6969';
+    } else {
+        // Switch back to unfilled heart icon
+        heartIcon.src = "/assets/icon/heart.svg";
+        button.style.backgroundColor = '#8d8d8d';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchLocations();
@@ -46,7 +58,7 @@ async function fetchLocations() {
 
         console.log('Tags data:', tagsData[0]);
 
-        const userResponse = await fetch('/getCurrentUser1');
+        const userResponse = await fetch('/getCurrentUserData');
         const userData = await userResponse.json();
 
         console.log('User data:', userData);
@@ -62,7 +74,8 @@ async function fetchLocations() {
         displayLocations();
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu địa điểm:', error);
-        // document.getElementById('locations-container').innerHTML = '<p>Đã xảy ra lỗi khi lấy dữ liệu.</p>';
+
+        document.getElementById('locations-container').innerHTML = '<p>Đã xảy ra lỗi khi lấy dữ liệu.</p>';
     }
 }
 
@@ -122,7 +135,6 @@ function countMatches(location, preferences) {
 function displayLocations() {
     const container = document.getElementById('locations-container');
     container.innerHTML = ''; // Remove old data
-
     // Filter locations by tag
     const restaurants = locationsData.filter((loc) => {
         const locTagIds = loc.tag.split(',').map(tagId => tagId.trim());
@@ -173,6 +185,7 @@ function displayGroup(locations, groupIndex, title, containerID) {
         groupContainer.innerHTML = '';
     }
 
+
     const startIndex = groupIndex * locationsPerGroup;
     const endIndex = startIndex + locationsPerGroup;
     const currentLocations = locations.slice(startIndex, endIndex);
@@ -186,7 +199,6 @@ function displayGroup(locations, groupIndex, title, containerID) {
     const recordsContainer = document.createElement('div');
     recordsContainer.classList.add('records-container');
     groupContainer.appendChild(recordsContainer);
-
     currentLocations.forEach((location) => {
         const locationDiv = document.createElement('div');
         locationDiv.classList.add('location-record');
@@ -221,6 +233,7 @@ function displayGroup(locations, groupIndex, title, containerID) {
         locationDiv.innerHTML = locationHtml;
         recordsContainer.appendChild(locationDiv);
     });
+
 
     console.log('Display group:', title);
 

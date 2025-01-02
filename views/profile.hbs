@@ -149,7 +149,7 @@
                 <div class="profile-info-section">
                     <h3>Profile Information</h3>
                     <div class="profile-pic-edit">
-                       <img id="profile-image-preview" src="../asset/image/ava.png" alt="Current Profile Picture" >
+                       <img id="profile-image-preview" src="/assets/image/user.png" alt="Current Profile Picture" >
                        <div>
                            <input type="file" id="profile-image-input" accept="image/png, image/jpeg" style="display: none;" onchange="loadProfileImage(event)">
                            <button onclick="document.getElementById('profile-image-input').click()" >Upload Photo</button>
@@ -157,11 +157,11 @@
                        </div>
                    </div>
                     <label for="fullname">Full name</label>
-                    <input type="text" id="fulname" value="{{user.fullname}}">
+                    <input type="text" id="fullname" value="{{user.fullname}}">
                     <label for="email">Email address</label>
                     <input type="text" id="email" value="{{user.email}}" readonly>
                     <label for="date-of-birth">Date of birth</label>
-                    <input type="date" id="date-of-birth" value="{{user.dateOfBirth}}">
+                    <input type="date" id="date-of-birth" value="{{{formatDateToISO user.dateOfBirth}}}">
                     <label for="location">Location</label>
                     <select id="location" multiple>
                        <option value="Thu Duc City">Thu Duc City</option>
@@ -185,16 +185,18 @@
                         <option value="Hoc Mon District">Hoc Mon District</option>
                         <option value="Nha Be District">Nha Be District</option>
                      </select>
-                <div class="modal-footer">
-                    <button class="save-button" onclick="saveChanges()">Update Profile</button>
-                    <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
-                </div>
+                    
+                    <div class="modal-footer">
+                        <button class="save-button" onclick="saveChanges()">Update Profile</button>
+                        <button class="cancel-button" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                    <div class="message-success" id="message-profile"></div>
                 </div>
                 <div class="password-section">
                     <h3>Change Password</h3>
                      <label for="current-password">Current Password</label>
                      <div class="password-input">
-                        <input type="password" id="current-password" >
+                        <input type="password" id="current-password" autocomplete="off">
                         <span class="password-toggle" onclick="togglePasswordVisibility('current-password')">
                            <i class="fas fa-eye" id="eye-icon-current-password"></i>
                         </span>
@@ -213,7 +215,8 @@
                            <i class="fas fa-eye" id="eye-icon-confirm-new-password"></i>
                          </span>
                     </div>
-                     <button class="save-button" onclick="saveChanges()">Change password</button>
+                     <button class="save-button" onclick="changePassword()">Change password</button>
+                     <div class="message-success" id="message-password"></div>
                  </div>
                 
             </div>
@@ -227,11 +230,11 @@
         const heartIcon = button.querySelector("img");
         if (heartIcon.src.includes("heart.svg")) {
             // Switch to filled heart icon
-            heartIcon.src = "../asset/icon/heart-filled.svg";
+            heartIcon.src = "/assets/icon/heart-filled.svg";
             button.style.backgroundColor = '#fe6969';
         } else {
             // Switch back to unfilled heart icon
-            heartIcon.src = "../asset/icon/heart.svg";
+            heartIcon.src = "/assets/icon/heart.svg";
             button.style.backgroundColor = '#8d8d8d';
         }
     }
@@ -263,9 +266,83 @@
     // Function to save changes
     function saveChanges() {
     // Implement saving logic here
-        closeEditModal(); // Close modal after saving
+        const fullname = $('#fullname').val();
+        const dateOfBirth = $('#date-of-birth').val() || '';
+        const districts = $('#location').val() || [];
+        if (!districts)
+            districts = [];
+        if (fullname)
+            $.ajax({
+                url: '/editprofile',
+                type: 'POST',
+                data: {
+                    fullname: fullname, 
+                    dateOfBirth: dateOfBirth, 
+                    districts: districts, 
+                },
+                success: function(user) {
+                    localStorage.setItem('fullname', user.fullname);
+                    let message = document.getElementById('message-profile');
+                    message.classList.remove('message-error');
+                    message.classList.add('message-success');
+                    message.textContent = "Profile updated successfully. Reload the page to apply changes.";
+                },
+                error: function(error) {
+                    let message = document.getElementById('message-profile');
+                    message.classList.remove('message-success');
+                    message.classList.add('message-error');
+                    message.textContent = "Error updating profile";
+                    console.error('Error:', error);
+                    console.log(error);
+                }
+            });
+        else {
+            let message = document.getElementById('message-profile');
+            message.classList.remove('message-success');
+            message.classList.add('message-error');
+            message.textContent = "Fullname must not left empty";
+        }
+        //closeEditModal(); // Close modal after saving
     }
+    function changePassword() {
+        const currentPassword = $('#current-password').val();
+        const newPassword = $('#new-password').val();
+        const confirmNewPassword = $('#confirm-new-password').val();
+        
 
+        //if (!districts)
+        //    districts = [];
+        //if (fullname)
+            $.ajax({
+                url: '/changepassword',
+                type: 'POST',
+                data: {
+                    currentPassword: currentPassword, 
+                    newPassword: newPassword, 
+                    confirmNewPassword: confirmNewPassword, 
+                },
+                success: function(res) {
+                    let message = document.getElementById('message-password');
+                    message.classList.remove('message-error');
+                    message.classList.add('message-success');
+                    message.textContent = res.message;
+                },
+                error: function(xhr, status, error) {
+                    let message = document.getElementById('message-password');
+                    message.classList.remove('message-success');
+                    message.classList.add('message-error');
+                    message.textContent = xhr.responseJSON.message;
+                    console.error('Error:', xhr.responseJSON.message);
+                    console.log(error);
+                }
+            });
+        //else {
+        //    let message = document.getElementById('message-profile');
+        //    message.classList.remove('message-success');
+        //    message.classList.add('message-error');
+        //    message.textContent = "Fullname must not left empty";
+        //}
+    }
     // Function to load profile image preview
     function loadProfileImage(event) {
     const file = event.target.files[0];
