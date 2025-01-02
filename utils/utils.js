@@ -294,6 +294,11 @@ class Utils {
       }
       return array;
     }
+
+    // 
+    static async getDocumentById(database, collection_name, id) {
+      return await database.findOne({PLAN_USER: id})
+    }
 }
 
 export default Utils;

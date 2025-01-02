@@ -156,10 +156,10 @@
                 </div>
                 <div class="budget-container">
                     <label for="min-budget">Min Budget:</label>
-                    <input type="number" id="min-budget" class="budget-input"  placeholder="VND">
+                    <input type="number" id="min-budget" class="budget-input"  placeholder=".000 VND">
                     <span>-</span>
                     <label for="max-budget">Max Budget:</label>
-                    <input type="number" id="max-budget" class="budget-input"  placeholder="VND">
+                    <input type="number" id="max-budget" class="budget-input"  placeholder=".000 VND">
                 </div>
             </div>
         </div>  
@@ -169,4 +169,7 @@
         </div>
     </div>
 </div>
+<script>
+    window.currentUserId = "{{userID}}";
+</script>
 <script src="/js/planning.js"></script>

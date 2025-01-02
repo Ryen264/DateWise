@@ -19,7 +19,7 @@ const renderPlanDetails = (data) => {
     // Create time for each plan item
     const time = document.createElement("div");
     time.className = "time";
-    time.textContent = item.time;
+    time.textContent = item.DETAIL_TIME;
     planContent.appendChild(time);
 
     // Add details for each plan item
@@ -27,15 +27,15 @@ const renderPlanDetails = (data) => {
     details.className = "details";
 
     const title = document.createElement("h3");
-    title.textContent = item.title;
+    title.textContent = item.LOC_NAME;
     details.appendChild(title);
 
     const location = document.createElement("p");
-    location.textContent = item.location;
+    location.textContent = item.LOC_FADDRESS;
     details.appendChild(location);
 
     const description = document.createElement("p");
-    description.textContent = item.description;
+    description.textContent = item.LOC_DESCR;
     details.appendChild(description);
 
     // Add details to planContent
@@ -65,5 +65,20 @@ const renderPlanDetails = (data) => {
 
 // Render plan details when the page is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  renderPlanDetails(planData);
+  // renderPlanDetails(planData);
+
+  fetch('/generatePlan')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(planData => {
+        console.log('Plan details fetched:', planData);
+        renderPlanDetails(planData);
+    })
+    .catch(error => {
+        console.error('Error fetching plan details:', error);
+  });
 });

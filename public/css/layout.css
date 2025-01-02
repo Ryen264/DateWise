@@ -1,3 +1,11 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+}
+
 /* Header */
 .header {
     background-color: #ffffff;
@@ -71,4 +79,8 @@
 .footer p {
     margin: 5px 0;
     font-size: 0.9em;
+}
+
+body {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
 }

@@ -74,6 +74,7 @@ async function fetchLocations() {
         displayLocations();
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu địa điểm:', error);
+
         document.getElementById('locations-container').innerHTML = '<p>Đã xảy ra lỗi khi lấy dữ liệu.</p>';
     }
 }
@@ -132,9 +133,8 @@ function countMatches(location, preferences) {
 }
 
 function displayLocations() {
-    //const container = document.getElementById('locations-container');
-    //container.innerHTML = ''; // Remove old data
-
+    const container = document.getElementById('locations-container');
+    container.innerHTML = ''; // Remove old data
     // Filter locations by tag
     const restaurants = locationsData.filter((loc) => {
         const locTagIds = loc.tag.split(',').map(tagId => tagId.trim());
@@ -153,7 +153,6 @@ function displayLocations() {
     });
 
     // Display locations for group restaurants
-    
     displayGroup(
         restaurants,
         restaurantGroupIndex,
@@ -166,60 +165,40 @@ function displayLocations() {
         cafes,
         cafeGroupIndex,
         'Must-try Coffee shops',
-        'coffeeshops-container',
+        'cafes-container',
     );  
 
     console.log('Display locations successfully');
 }
 
 function displayGroup(locations, groupIndex, title, containerID) {
-    let container = document.getElementById(containerID);
-    
-    // groupContainer.innerHTML = '';
-    // groupContainer.classList.add('slider-container');
-    // groupContainer.classList.add("slider-container");
-    if (!container) {
-        container = document.createElement('div');
-        container.id = containerID;
-        container.classList.add('slider');
-        
+    const container = document.getElementById('locations-container');
+    let groupContainer = document.getElementById(containerID);
+
+    if (!groupContainer) {
+        groupContainer = document.createElement('div');
+        groupContainer.id = containerID;
+        groupContainer.classList.add('locations-group');
+        container.appendChild(groupContainer);
     } else {
         // Clear the previous content of group container
-        container.innerHTML = '';
+        groupContainer.innerHTML = '';
     }
 
-    groupContainer = document.createElement('div');
-    groupContainer.id = containerID;
-    groupContainer.classList.add('slider-wrapper');
-    const prevButton = document.createElement('button');
-    prevButton.classList.add('slider-btn', 'prev');
-    const prevImg = document.createElement('img');
-    prevImg.src = '/assets/icon/left-arrow.svg';
-    prevImg.alt = 'Left';
-    prevImg.width = 24;
-    prevImg.height = 24;
-    prevButton.appendChild(prevImg);
-    groupContainer.appendChild(prevButton);
-    container.appendChild(groupContainer);
-
-    let sliderContainer = document.createElement('div');
-    sliderContainer.classList.add('slider-container');
-    groupContainer.appendChild(sliderContainer);
 
     const startIndex = groupIndex * locationsPerGroup;
     const endIndex = startIndex + locationsPerGroup;
     const currentLocations = locations.slice(startIndex, endIndex);
 
     // Display group title
-    // const titleDiv = document.createElement('h2');
-    // titleDiv.innerText = title;
-    // sliderContainer.appendChild(titleDiv);
+    const titleDiv = document.createElement('h2');
+    titleDiv.innerText = title;
+    groupContainer.appendChild(titleDiv);
 
     // Add div containing location records
-    // const recordsContainer = document.createElement('div');
-    // recordsContainer.classList.add('records-container');
-    // sliderContainer.appendChild(recordsContainer);
-
+    const recordsContainer = document.createElement('div');
+    recordsContainer.classList.add('records-container');
+    groupContainer.appendChild(recordsContainer);
     currentLocations.forEach((location) => {
         const locationDiv = document.createElement('div');
         locationDiv.classList.add('location-record');
@@ -229,65 +208,37 @@ function displayGroup(locations, groupIndex, title, containerID) {
         )}`;
 
         const locationHtml = `
-            <div class="slider-slide">
             <div class="image-container">
-                <img src="${imageUrl}">
-                <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
-                    <img src="/assets/icon/heart.svg" alt="Heart icon">
-                </button>
+                <div class="location-image" style="background-image: url('${imageUrl}');"></div>
+                <div class="heart-icon">
+                    <span class="icon">❤️</span>
                 </div>
-                <div class="text-container">
-                <h3>${location.name}</h3>
-                <p>⭐ ${location.rating}</p>
-                <p>📍 ${location.district}</p>
-                <p>💵 From ${formatPrice(location.price)}</p>
             </div>
+            <div class="location-details">
+                <div class="location-name">${location.name}</div>
+                <div class="detail-item">
+                    <span class="icon">⭐</span>
+                    <span>${location.rating}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="icon">📍</span>
+                    <span>${location.district}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="icon">💵</span>
+                    <span class="price">From ${formatPrice(location.price)}</span>
+                </div>
             </div>
         `;
-
-        // const locationHtml = `
-        //     <div class="image-container">
-        //         <div class="location-image" style="background-image: url('${imageUrl}');"></div>
-        //         <div class="heart-icon">
-        //             <span class="icon">❤️</span>
-        //         </div>
-        //     </div>
-        //     <div class="location-details">
-        //         <div class="location-name">${location.name}</div>
-        //         <div class="detail-item">
-        //             <span class="icon">⭐</span>
-        //             <span>${location.rating}</span>
-        //         </div>
-        //         <div class="detail-item">
-        //             <span class="icon">📍</span>
-        //             <span>${location.district}</span>
-        //         </div>
-        //         <div class="detail-item">
-        //             <span class="icon">💵</span>
-        //             <span class="price">From ${formatPrice(location.price)}</span>
-        //         </div>
-        //     </div>
-        // `;
         locationDiv.innerHTML = locationHtml;
-        sliderContainer.appendChild(locationDiv);
+        recordsContainer.appendChild(locationDiv);
     });
-    //<button class="slider-btn next">
-    //<img src="/assets/icon/right-arrow.svg" alt="Right" width="24" height="24">
-    //</button>
-    const nextButton = document.createElement('button');
-    nextButton.classList.add('slider-btn', 'next');
-    const nextImg = document.createElement('img');
-    nextImg.src = '/assets/icon/right-arrow.svg';
-    nextImg.alt = 'Right';
-    nextImg.width = 24;
-    nextImg.height = 24;
-    nextButton.appendChild(nextImg);
-    groupContainer.appendChild(nextButton);
+
 
     console.log('Display group:', title);
 
     // Display navigation buttons
-    //addNavigationForGroup(groupContainer, locations, groupIndex, containerID.replace('-container', ''));
+    addNavigationForGroup(groupContainer, locations, groupIndex, containerID.replace('-container', ''));
 }
 
 function addNavigationForGroup(groupContainer, locations, groupIndex, groupName) {
@@ -356,44 +307,28 @@ function updateDisplayGroup(locations, groupIndex, groupName) {
         )}`;
 
         const locationHtml = `
-            <div class="image-container">
-            <img src="${imageUrl}">
-            <button id="heart" class="heart-btn" onclick="toggleHeart(this)">
-                <img src="/assets/icon/heart.svg" alt="Heart icon">
-            </button>
-            </div>
-            <div class="text-container">
-            <h3>${location.name}</h3>
-            <p>⭐ ${location.rating}</p>
-            <p>📍 ${location.district}</p>
-            <p>💵 From ${formatPrice(location.price)}</p>
-            </div>
-        `;
-
-        // const locationHtml = `
-            
-        //       <div class="image-container">
-        //           <div class="location-image" style="background-image: url('${imageUrl}');"></div>
-        //           <div class="heart-icon">
-        //               <span class="icon">❤️</span>
-        //           </div>
-        //       </div>
-        //       <div class="location-details">
-        //           <div class="location-name">${location.name}</div>
-        //           <div class="detail-item">
-        //               <span class="icon">⭐</span>
-        //               <span>${location.rating}</span>
-        //           </div>
-        //           <div class="detail-item">
-        //               <span class="icon">📍</span>
-        //               <span>${location.district}</span>
-        //           </div>
-        //           <div class="detail-item">
-        //               <span class="icon">💵</span>
-        //               <span class="price">From ${formatPrice(location.price)}</span>
-        //           </div>
-        //       </div>
-        //   `;
+              <div class="image-container">
+                  <div class="location-image" style="background-image: url('${imageUrl}');"></div>
+                  <div class="heart-icon">
+                      <span class="icon">❤️</span>
+                  </div>
+              </div>
+              <div class="location-details">
+                  <div class="location-name">${location.name}</div>
+                  <div class="detail-item">
+                      <span class="icon">⭐</span>
+                      <span>${location.rating}</span>
+                  </div>
+                  <div class="detail-item">
+                      <span class="icon">📍</span>
+                      <span>${location.district}</span>
+                  </div>
+                  <div class="detail-item">
+                      <span class="icon">💵</span>
+                      <span class="price">From ${formatPrice(location.price)}</span>
+                  </div>
+              </div>
+          `;
         locationDiv.innerHTML = locationHtml;
         container.appendChild(locationDiv);
     });
