@@ -10,6 +10,8 @@ const loginUser = async (req, res) => {
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
               req.session.user = req.body.email;
+              req.session.newUserID = user._id;
+            
               res.status(200).json({fullname: req.session.user.fullname, email:req.session.user.email});
             } else {
               res.status(401).json({ message: 'Invalid email or password' });
@@ -60,6 +62,8 @@ const signupUser = async (req, res) => {
           await newUser.save();
           
           req.session.user = email;
+          req.session.newUserID = newUserID;
+        
           res.status(201).json({fullname: req.session.user.fullname, email:req.session.user.email});//redirect('/onboarding_1');
     } catch (err) {
         console.log(err.message);
@@ -100,6 +104,8 @@ const handle_submit_onboarding = async(req, res) => {
                 res.status(500).json({ message: 'Internal server error' });
             }
         }
+
+        // res.redirect('/signin');
     } else {
         res.status(401).json({ message: 'User not authenticated' });
     }
@@ -129,6 +135,18 @@ const handle_edit_profile = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+const getUser = async (req, res) => {
+    try {
+        const users = await Users.find();
+        // console.log(locations[0]);
+        // res.status(200).json(locations);
+        return users;
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 
 const handle_change_password = async(req, res) => {
     console.log(req.body);
@@ -167,6 +185,6 @@ const handle_change_password = async(req, res) => {
     }
     else err.status(401).json({message: 'Password provided is incorrect.'});
 }
-export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password};
+export {loginUser, signupUser, handle_submit_onboarding, handle_edit_profile, handle_change_password, getUser};
             
 

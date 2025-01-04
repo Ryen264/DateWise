@@ -1,40 +1,81 @@
 import Utils from '../utils/utils.js';
 import PlanDataset from './planDataset.js';
 import LocationDataset from './locationDataset.js';
+import {Plans} from '../models/planModel.js';
 
 class Plan {
   constructor(
-    planId,
-    planDataset,
+    planDocument,
     locationDataset,
+    avgTimePerLocation = 1.5,
     maxPoolSize = 10,
     budgetTimeRatio = 0.5,
     budgetProbThreshold = 0.2,
     timeThreshold = 0
   ) {
-    
-    if (!(planDataset instanceof PlanDataset)) {
-      throw new Error('Invalid planDataset: Must be an instance of PlanDataset');
+
+    // kiểm tra planDocument có phải database Plans không
+    if (!(planDocument instanceof Plans)) {
+      throw new Error('Invalid plan document.');
     }
+
+    this.id = planDocument._id;
+    this.budget = parseFloat(planDocument.PLAN_MAXBUDGET) || 1000;
+    this.startTime = parseFloat(planDocument.PLAN_STARTTIME) || 9;
+    this.endTime = parseFloat(planDocument.PLAN_ENDTIME) || 21;
+    this.hoursSum = this.endTime - this.startTime;
+    this.isLunchTime = Utils.checkinLunchTime(this.startTime) || Utils.checkinLunchTime(this.endTime);
+    this.isDinnerTime = Utils.checkinDinnerTime(this.startTime) || Utils.checkinDinnerTime(this.endTime);
+    this.restaurantsNum = parseInt(this.isLunchTime + this.isDinnerTime) || 1;
+    const maxLocsNum = parseInt(this.hoursSum / avgTimePerLocation) || 1;
+    this.maxOthersNum = maxLocsNum - this.restaurantsNum || 1;
+    // this.restaurants = planDataset.getRestaurants(planId);
+    // this.others = planDataset.getOthers(planId);
     if (!(locationDataset instanceof LocationDataset)) {
       throw new Error('Invalid locationDataset: Must be an instance of LocationDataset');
     }
 
-    this.id = planId;
-    this.budget = planDataset.getBudget(planId);
-    this.startTime = planDataset.getStartTime(planId);
-    this.endTime = planDataset.getEndTime(planId);
-    this.hoursSum = planDataset.getHoursSum(planId);
-    this.isLunchTime = planDataset.getIsLunchTime(planId);
-    this.isDinnerTime = planDataset.getIsDinnerTime(planId);
-    this.restaurantsNum = planDataset.getRestaurantsNum(planId);
-    this.maxOthersNum = planDataset.getMaxOthersNum(planId);
-    this.restaurants = planDataset.getRestaurants(planId);
-    this.others = planDataset.getOthers(planId);
+    // this.id = planId;
+    // this.budget = planDataset.getBudget(planId);
+    // this.startTime = planDataset.getStartTime(planId);
+    // this.endTime = planDataset.getEndTime(planId);
+    // this.hoursSum = planDataset.getHoursSum(planId);
+    // this.isLunchTime = planDataset.getIsLunchTime(planId);
+    // this.isDinnerTime = planDataset.getIsDinnerTime(planId);
+    // this.restaurantsNum = planDataset.getRestaurantsNum(planId);
+    // this.maxOthersNum = planDataset.getMaxOthersNum(planId);
+    // this.restaurants = planDataset.getRestaurants(planId);
+    // this.others = planDataset.getOthers(planId);
+    // this.budgetProbThreshold = budgetProbThreshold;
+    // this.timeThreshold = timeThreshold;
+    const plan_district = planDocument.PLAN_DISTRICT || 'District 1';
+    const districtLocations = locationDataset
+        .getLocations()
+        .filter((loc) => locationDataset.getDistrict(loc) === plan_district);
 
-    this.budgetProbThreshold = budgetProbThreshold;
-    this.timeThreshold = timeThreshold;
+    const plan_cuisines = planDocument.PLAN_CUISINES || ['CUIS-02'];
+    const plan_mcourses = planDocument.PLAN_MCOURSES || ['MCOU-09'];
+    const plan_desserts = planDocument.PLAN_DESSERTS || ['DEDR-011'];
+    const plan_activities = planDocument.PLAN_ACTIVITIES || ['ACTI-05'];
 
+    this.restaurants = districtLocations.filter(
+      (loc) =>
+        plan_cuisines.includes(locationDataset.getTag(loc)) ||
+        plan_mcourses.includes(locationDataset.getTag(loc))
+    );
+    if (this.restaurants.length < this.restaurantsNum) {
+        for (const loc of districtLocations) {
+            if (locationDataset.getType(loc) === 'Restaurant' && !this.restaurants.includes(loc)) {
+                this.restaurants.push(loc);
+            }
+        }
+    }
+
+    this.others = districtLocations.filter(
+        (loc) =>
+          plan_desserts.includes(locationDataset.getTag(loc)) ||
+          plan_activities.includes(locationDataset.getTag(loc))
+    );
     // Generate plan pool for each plan
     const maxIterations = this.maxOthersNum;
     let planLocsLst = [];
@@ -188,6 +229,10 @@ class Plan {
 
     // Step 3: Convert into list[dict] plan detail
     this.planDetail = [];
+    if(timeline === null) {
+      console.log('Failed to generate plan.');
+      return this.planDetail;
+    }
     timeline = Utils.removeDuplicateLocs(timeline);
     for (const [time, loc] of Object.entries(timeline)) {
       if (loc !== null) {
@@ -200,20 +245,17 @@ class Plan {
     }
     return this.planDetail;
   }
-
-  async acceptPlan(connectionString, dbName) {
-    const client = await MongoClient.connect(connectionString);
-    const db = client.db(dbName);
-    const collection = db.collection('PLAN_DETAIL');
-
-    if (!this.planDetail || this.planDetail.length === 0) {
-      console.log('Warning: No data to upload.');
-      return null;
+  async acceptPlan() {
+    try{
+      // Step 4: Save plan detail to database
+      for (const detail of this.planDetail) {
+        await Plans.create(detail);
+      }
+      console.log('Plan accepted.');
+    } catch (error) {
+      console.error('Failed to accept plan:', error);
     }
 
-    const result = await collection.insertMany(this.planDetail);
-    console.log(`Successfully inserted ${result.insertedCount} documents.`);
-    await client.close();
   }
 }
 
